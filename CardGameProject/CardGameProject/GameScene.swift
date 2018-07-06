@@ -21,6 +21,8 @@ enum CardLevel :CGFloat {
 var dealtCards: [Card] = []
 var cardPosition: [CGPoint] = []
 var counter = 0.5
+var xCord = 30
+var count = 0
 
 class GameScene: SKScene {
     
@@ -31,14 +33,46 @@ class GameScene: SKScene {
         addChild(bg)
         
         let deckTexture = SKTexture(imageNamed: "card_back")
+        
+
        
         let reshuffle_center = SKSpriteNode(imageNamed: "reshuffle_texture")
         reshuffle_center.position = CGPoint(x: 200, y: 480)
         addChild(reshuffle_center)
         
+        
         let deck = Deck(Decktexture: deckTexture)
         deck.position = CGPoint(x: 200, y: 490)
         addChild(deck)
+       
+        while count != 5 {
+            let card_placer = SKSpriteNode(imageNamed: "card_placer")
+            card_placer.position = CGPoint(x: xCord, y: 80)
+            card_placer.size = CGSize(width: 45.0, height: 45.0)
+            addChild(card_placer)
+            xCord += 50
+            count += 1
+        }
+        xCord = 180
+        while count != 10 {
+            let card_placer = SKSpriteNode(imageNamed: "card_placer")
+            card_placer.position = CGPoint(x: xCord, y: 30)
+            card_placer.size = CGSize(width: 45.0, height: 45.0)
+            addChild(card_placer)
+            xCord += 50
+            count += 1
+        }
+        
+        
+        let card_placer_tail2 = SKSpriteNode(imageNamed: "Rcard_placer_tail")
+        card_placer_tail2.position = CGPoint(x:330, y:80)
+        card_placer_tail2.size = CGSize(width: 150, height: 45.0)
+        addChild(card_placer_tail2)
+        
+        let card_placer_tail1 = SKSpriteNode(imageNamed: "Lcard_placer_tail")
+        card_placer_tail1.position = CGPoint(x:80, y:30)
+        card_placer_tail1.size = CGSize(width: 150, height: 45.0)
+        addChild(card_placer_tail1)
         
         let cardDrawn1 = Card(cardType: .random)
         cardDrawn1.position = CGPoint(x: 50, y: 300)
