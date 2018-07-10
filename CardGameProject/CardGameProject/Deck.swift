@@ -41,7 +41,7 @@ class Deck : SKSpriteNode {
             let moveToDeck = SKAction.move(to: deckLocation, duration: 0.2)
             let firstSequence = SKAction.sequence([firstMove, moveToDeck])
             let moveSequence = SKAction.sequence([delayAction, moveToDeck])
-            if counter == 0.3 {
+            if counter == 0.0 {
                 returnedCard.run(firstSequence)
                 
             }
@@ -54,19 +54,21 @@ class Deck : SKSpriteNode {
     
     func reposition(card: Card, cardPosition: CGPoint, counter: Double) -> Card {
         returnedCard = card
-        let firstCard = 0.0
-        let delayAction = SKAction.wait(forDuration: 0.5 * counter)
-        let firstMove = SKAction.wait(forDuration: 0.5 * firstCard)
-        let moveToHand = SKAction.move(to: cardPosition, duration: 0.2)
-        let firstSequence = SKAction.sequence([firstMove, moveToHand])
-        let moveSequence = SKAction.sequence([delayAction, moveToHand])
-        if counter == 0.3 {
-            returnedCard.run(firstSequence)            
+        if returnedCard.redrawing == true {
+            let firstCard = 0.0
+            let delayAction = SKAction.wait(forDuration: 0.5 * counter)
+            let firstMove = SKAction.wait(forDuration: 0.5 * firstCard)
+            let movetoTable = SKAction.move(to: cardPosition, duration: 0.2)
+            let firstSequence = SKAction.sequence([firstMove, movetoTable])
+            let moveSequence = SKAction.sequence([delayAction, movetoTable])
+            if counter == 0.3 {
+                returnedCard.run(firstSequence)
+            }
+            else {
+                returnedCard.run(moveSequence)
+            }
         }
-        else {
-            returnedCard.run(moveSequence)
-        }
-         return returnedCard
+        return returnedCard
     }
 
     
