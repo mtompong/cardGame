@@ -36,6 +36,9 @@ class Deck : SKSpriteNode {
         let firstCard = 0.0
         if returnedCard.redrawing == true && card.faceDown == false {
             //move sequence
+            if returnedCard.selected == true {
+                returnedCard.Unhighlight()
+            }
             let delayAction = SKAction.wait(forDuration: 0.5 * counter)
             let firstMove = SKAction.wait(forDuration: 0.5 * firstCard)
             let moveToDeck = SKAction.move(to: deckLocation, duration: 0.2)

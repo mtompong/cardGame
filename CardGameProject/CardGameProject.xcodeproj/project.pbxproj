@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF8B5CAB20F4C76600243529 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B5CAA20F4C76600243529 /* GameOver.swift */; };
+		CF8B5CAC20F4C79100243529 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B5CAA20F4C76600243529 /* GameOver.swift */; };
+		CF8B5CAD20F4C79200243529 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B5CAA20F4C76600243529 /* GameOver.swift */; };
 		CF97214D20EC267800A9D707 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF1DD20E5E1340070DE1B /* Card.swift */; };
 		CF97214E20EC267900A9D707 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF1DD20E5E1340070DE1B /* Card.swift */; };
 		CF97214F20EC268800A9D707 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF18420E5B6D80070DE1B /* GameScene.swift */; };
@@ -50,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CF8B5CAA20F4C76600243529 /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		CF9B553720EB523800F3D1B8 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		CFA3E4EB20F0415500844E42 /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		CFCAF17B20E5B6D80070DE1B /* CardGameProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +127,7 @@
 				CFCAF18020E5B6D80070DE1B /* GameScene.sks */,
 				CFCAF18220E5B6D80070DE1B /* Actions.sks */,
 				CFCAF18420E5B6D80070DE1B /* GameScene.swift */,
+				CF8B5CAA20F4C76600243529 /* GameOver.swift */,
 				CFCAF1DD20E5E1340070DE1B /* Card.swift */,
 				CFA3E4EB20F0415500844E42 /* Hand.swift */,
 				CF9B553720EB523800F3D1B8 /* Deck.swift */,
@@ -291,6 +296,7 @@
 			files = (
 				CFCAF18520E5B6D80070DE1B /* GameScene.swift in Sources */,
 				CFCAF18720E5B6D80070DE1B /* GameViewController.swift in Sources */,
+				CF8B5CAB20F4C76600243529 /* GameOver.swift in Sources */,
 				CFA3E4EC20F0415500844E42 /* Hand.swift in Sources */,
 				CF9B553820EB523800F3D1B8 /* Deck.swift in Sources */,
 				CFCAF17F20E5B6D80070DE1B /* AppDelegate.swift in Sources */,
@@ -304,6 +310,7 @@
 			files = (
 				CF97215120EC26A500A9D707 /* GameViewController.swift in Sources */,
 				CF97214D20EC267800A9D707 /* Card.swift in Sources */,
+				CF8B5CAC20F4C79100243529 /* GameOver.swift in Sources */,
 				CFA3E4ED20F0415500844E42 /* Hand.swift in Sources */,
 				CF97215420ECC4F700A9D707 /* Deck.swift in Sources */,
 				CF97214F20EC268800A9D707 /* GameScene.swift in Sources */,
@@ -317,6 +324,7 @@
 			files = (
 				CF97215220EC26A600A9D707 /* GameViewController.swift in Sources */,
 				CF9B553A20EB523800F3D1B8 /* Deck.swift in Sources */,
+				CF8B5CAD20F4C79200243529 /* GameOver.swift in Sources */,
 				CFA3E4EE20F0415500844E42 /* Hand.swift in Sources */,
 				CF97214E20EC267900A9D707 /* Card.swift in Sources */,
 				CF97215020EC268800A9D707 /* GameScene.swift in Sources */,

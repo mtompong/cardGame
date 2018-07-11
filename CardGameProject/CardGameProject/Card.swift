@@ -27,6 +27,7 @@ class Card : SKSpriteNode {
     var faceDown = true
     var redrawing = true
     var selected = false
+   
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
@@ -62,26 +63,6 @@ class Card : SKSpriteNode {
             self.cardType = .random
             frontTexture = SKTexture(imageNamed: "card_back")
         }
-        
-      /*  switch cardType {
-        case .back:
-            frontTexture = SKTexture(imageNamed: "card_back")
-        case .black:
-            frontTexture = SKTexture(imageNamed: "card_front_black")
-        case .blue:
-            frontTexture = SKTexture(imageNamed: "card_front_blue")
-        case .green:
-            frontTexture = SKTexture(imageNamed: "card_front_green")
-        case .red:
-            frontTexture = SKTexture(imageNamed: "card_front_red")
-        case .white:
-            frontTexture = SKTexture(imageNamed: "card_front_white")
-        case .purple:
-            frontTexture = SKTexture(imageNamed: "card_front_purple")
-        case .random:
-            frontTexture = SKTexture(imageNamed: shuffle())
-        }*/
-        
         
         super.init(texture: backTexture, color: .clear, size: backTexture.size())
     }
@@ -137,26 +118,32 @@ class Card : SKSpriteNode {
     func Highlight() {
         //find out what texture switch case through cardType
         //change texture to selected texture , selected = true
-     /*   let cardType = self.cardType
-        switch cardType {
-        case .blue:
-            let select = SKTexture(imageNamed: "card_front_blue_sel")
-            let selectedTexture = SKAction.setTexture(select)
-            self.run(selectedTexture)
+        if self.redrawing == true {
+            let highlightTable = SKAction.scale(to: 1.33, duration: 0.1)
+            self.run(highlightTable)
             self.selected = true
+        }else{
+            if self.redrawing == false{
+                let highlightHand = SKAction.scale(to: 0.5, duration: 0.1)
+                self.run(highlightHand)
+                self.selected = true
+            }
             
-        default: self.cardType = cardType
         }
-    */
-        let highlight = SKAction.scale(to: 1.33, duration: 0.1)
-        self.run(highlight)
-        self.selected = true
     }
     
     func Unhighlight() {
-        let unhighlight = SKAction.scale(to: 1.0, duration: 0.1)
-        self.run(unhighlight)
-        self.selected = false
+        if self.redrawing == true{
+            let unhighlightTable = SKAction.scale(to: 1.0, duration: 0.1)
+            self.run(unhighlightTable)
+            self.selected = false
+        }else{
+            if self.redrawing == false{
+                let unhighlightHand = SKAction.scale(to: 0.33, duration: 0.1)
+                self.run(unhighlightHand)
+                self.selected = false
+            }
+        }
     }
     
     func movetoHand (handPosition: CGPoint) {
@@ -167,6 +154,27 @@ class Card : SKSpriteNode {
             self.run(moveSequence)
             self.selected = false
         }
+    }
+    
+    func swapToTable (tablePosition: CGPoint) {
+        if self.selected == true {
+            let placeOnTable = SKAction.scale(to: 1, duration: 0.2)
+            let delayAction = SKAction.wait(forDuration: 0.1)
+            let moveToward = SKAction.move(to: tablePosition, duration: 0.2 )
+            let moveSequence = SKAction.sequence([placeOnTable, delayAction, moveToward])
+            self.run(moveSequence)
+            self.selected = false
+            self.redrawing = true
+        }
+    }
+    
+    func swapToHand(handPosition: CGPoint) {
+        self.redrawing = false
+        let placeInside = SKAction.scale(to: 0.33, duration: 0.2)
+        let delayAction = SKAction.wait(forDuration: 0.1)
+        let moveToward = SKAction.move(to: handPosition, duration: 0.2 )
+        let placeSequence = SKAction.sequence([placeInside, delayAction, moveToward])
+        self.run(placeSequence)
     }
 }
 

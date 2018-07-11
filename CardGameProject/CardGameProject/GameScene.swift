@@ -96,24 +96,6 @@ class GameScene: SKScene {
         hand10.position = CGPoint(x: 380, y: 30)
         hand10.size = CGSize(width: 45.0, height: 44.0)
         addChild(hand10)
-       
-        /*while count != 5 {
-            let card_placer = SKSpriteNode(imageNamed:"card_placer")
-            card_placer.position = CGPoint(x: xCord, y: 80)
-            card_placer.size = CGSize(width: 45.0, height: 45.0)
-            addChild(card_placer)
-            xCord += 50
-            count += 1
-        }
-        xCord = 180
-        while count != 10 {
-           let card_placer = SKSpriteNode(imageNamed:"card_placer")
-            card_placer.position = CGPoint(x: xCord, y: 30)
-            card_placer.size = CGSize(width: 45.0, height: 45.0)
-            addChild(card_placer)
-            xCord += 50
-            count += 1
-        }*/
         
         //table------------------------------
         let card_placer_tail2 = SKSpriteNode(imageNamed: "Rcard_placer_tail")
@@ -136,29 +118,29 @@ class GameScene: SKScene {
         cardDrawn2.position = CGPoint(x: 130, y: 300)
         addChild(cardDrawn2)
         dealtCards.append(cardDrawn2)
-         cardPosition.append(cardDrawn2.position)
- 
+        cardPosition.append(cardDrawn2.position)
+        
         
         let cardDrawn3 = Card(cardType: .random)
         cardDrawn3.position = CGPoint(x: 210, y: 300)
         addChild(cardDrawn3)
         dealtCards.append(cardDrawn3)
-         cardPosition.append(cardDrawn3.position)
-     
+        cardPosition.append(cardDrawn3.position)
+        
         
         let cardDrawn4 = Card(cardType: .random)
         cardDrawn4.position = CGPoint(x: 290, y: 300)
         addChild(cardDrawn4)
         dealtCards.append(cardDrawn4)
-         cardPosition.append(cardDrawn4.position)
-       
+        cardPosition.append(cardDrawn4.position)
+        
         
         let cardDrawn5 = Card(cardType: .random)
         cardDrawn5.position = CGPoint(x: 370, y: 300)
         addChild(cardDrawn5)
         dealtCards.append(cardDrawn5)
-         cardPosition.append(cardDrawn5.position)
-     
+        cardPosition.append(cardDrawn5.position)
+        
         
         //second row
         
@@ -166,55 +148,45 @@ class GameScene: SKScene {
         cardDrawn6.position = CGPoint(x: 50, y: 175)
         addChild(cardDrawn6)
         dealtCards.append(cardDrawn6)
-         cardPosition.append(cardDrawn6.position)
-      
+        cardPosition.append(cardDrawn6.position)
+        
         
         let cardDrawn7 = Card(cardType: .random)
         cardDrawn7.position = CGPoint(x: 130, y: 175)
         addChild(cardDrawn7)
         dealtCards.append(cardDrawn7)
-         cardPosition.append(cardDrawn7.position)
-       
+        cardPosition.append(cardDrawn7.position)
+        
         
         let cardDrawn8 = Card(cardType: .random)
         cardDrawn8.position = CGPoint(x: 210, y: 175)
         addChild(cardDrawn8)
         dealtCards.append(cardDrawn8)
-         cardPosition.append(cardDrawn8.position)
-      
+        cardPosition.append(cardDrawn8.position)
+        
         
         let cardDrawn9 = Card(cardType: .random)
         cardDrawn9.position = CGPoint(x: 290, y: 175)
         addChild(cardDrawn9)
         dealtCards.append(cardDrawn9)
-         cardPosition.append(cardDrawn9.position)
+        cardPosition.append(cardDrawn9.position)
         
         
         let cardDrawn10 = Card(cardType: .random)
         cardDrawn10.position = CGPoint(x: 370, y: 175)
         addChild(cardDrawn10)
         dealtCards.append(cardDrawn10)
-         cardPosition.append(cardDrawn10.position)
-      
+        cardPosition.append(cardDrawn10.position)
+        
         
         for card in dealtCards{
             counter += 0.3
             card.flip(counter: counter)
-            }
-            counter = resetCounter(counter: counter)
-    }
-
- //////////////////////////////////////////////////////////////////
-    
- /*   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)          
-            if let card = atPoint(location) as? Card {
-                card.position = location
-            }
         }
-    }*/
+        counter = resetCounter(counter: counter)
+    }
     
+    //////////////////////////////////////////////////////////////////
     
     override func touchesBegan(_ touches:
         Set<UITouch>, with event: UIEvent?) {
@@ -227,18 +199,22 @@ class GameScene: SKScene {
                     //reshuffle cards & move to deck
                     
                     for card in dealtCards{
-                        counter += 0.3
-                        let card = deck.redraw(card: card, deckLocation: deck.position, counter: counter )
-                        card.flip(counter: counter)
+                        if card.redrawing == true {
+                            counter += 0.3
+                            let card = deck.redraw(card: card, deckLocation: deck.position, counter: counter )
+                            card.flip(counter: counter)
+                        }
                     }
                     
                     //deal new hand & reposition
                     var position = 0
                     for card in dealtCards{
-                        counter += 0.3
-                        let card = deck.reposition(card: card, cardPosition: cardPosition[position], counter: counter)
-                        position += 1
-                        card.flip(counter: counter)             
+                        if card.redrawing == true {
+                            counter += 0.3
+                            let card = deck.reposition(card: card, cardPosition: cardPosition[position], counter: counter)
+                            position += 1
+                            card.flip(counter: counter)
+                        }
                     }
                 }
                 counter = resetCounter(counter: counter)
@@ -246,48 +222,49 @@ class GameScene: SKScene {
             
             if let card = atPoint(location) as? Card {
                 if touch.tapCount == 1 {
+                    let cardTableLocation = card.position
+                    var switching = false
+                    var handLocation : CGPoint? = nil
                     for card in dealtCards{
-                        if card.selected == true {
+                        if card.selected == true && card.redrawing == true {
                             card.Unhighlight()
+                        } else if card.redrawing == false && card.selected == true{
+                            handLocation = card.position
+                            card.swapToTable(tablePosition: cardTableLocation)
+                            switching = true
                         }
+                        
                     }
-                    card.Highlight()
+                    if switching == true {
+                        card.swapToHand(handPosition: handLocation!)
+                    }else{
+                        card.Highlight()
+                    }
                 }
             }
             
             if let hand = atPoint(location) as? Hand {
-                if touch.tapCount == 1 {
+                if touch.tapCount == 1 && hand.occupied == false {
                     
                     for card in dealtCards{
-                           let card = hand.addtoHand(card: card)
-                            card.movetoHand(handPosition: hand.position)
-
+                        let card = hand.addtoHand(card: card)
+                        card.movetoHand(handPosition: hand.position)
                     }
                 }
             }
             
+            
         }
     }
     
-   /* override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            if let card = atPoint(location) as? Card {
-                card.zPosition = CardLevel.board.rawValue
-                card.removeFromParent()
-                addChild(card)
-                card.removeAction(forKey: "pickup")
-                card.run(SKAction.scale(to: 1.0, duration: 0.25), withKey: "drop")
-            }
-        }
-    }*/
-    
     func resetCounter (counter: Double) -> Double {
-      let counter = 0.0
+        let counter = 0.0
         return counter
     }
     
-   
+    
 }
+
+
 
 

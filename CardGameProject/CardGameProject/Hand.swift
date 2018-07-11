@@ -10,10 +10,11 @@ import SpriteKit
 import GameplayKit
 
 var heldCard = Card(cardType: .random)
+let occupied = false
 
 class Hand : SKSpriteNode {
     
-    
+    var occupied = false
     let handTexture :SKTexture
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
@@ -30,15 +31,26 @@ class Hand : SKSpriteNode {
     func addtoHand (card: Card) -> Card {
         heldCard = card
         if heldCard.selected == true {
-            //let cardSize = CGSize(width: 35.0, height: 35.0)
-            
             let placeInside = SKAction.scale(to: 0.33, duration: 0.2)
             let delayAction = SKAction.wait(forDuration: 0.1)
             let placeSequence = SKAction.sequence([placeInside, delayAction])
             heldCard.run(placeSequence)
             heldCard.redrawing = false
+            self.occupied = true
         }
         return heldCard
     }
+    
+   /* func swapWithTable (card: Card) -> Card {
+        heldCard = card
+        let placeOnTable = SKAction.scale(to: 1, duration: 0.2)
+        let delayAction = SKAction.wait(forDuration: 0.1)
+        let placeSequence = SKAction.sequence([placeOnTable, delayAction])
+        heldCard.run(placeSequence)
+        heldCard.redrawing = true
+        self.occupied = false
+        
+        return heldCard
+    }*/
     
 }
