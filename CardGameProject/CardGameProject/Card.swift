@@ -68,7 +68,7 @@ class Card : SKSpriteNode {
     }
     
     func flip(counter: Double) {
-        if returnedCard.redrawing == true {
+        if self.redrawing == true {
             let firstHalfFlip = SKAction.scaleX(to: 0.0, duration: 0.2)
             let secondHalfFlip = SKAction.scaleX(to: 1.0, duration: 0.2)
             let delayAction = SKAction.wait(forDuration: 0.5 * counter )
@@ -147,13 +147,13 @@ class Card : SKSpriteNode {
     }
     
     func movetoHand (handPosition: CGPoint) {
-        if self.selected == true {
-            let delayAction = SKAction.wait(forDuration: 0.1)
-            let moveToward = SKAction.move(to: handPosition, duration: 0.2 )
-            let moveSequence = SKAction.sequence([delayAction, moveToward])
-            self.run(moveSequence)
-            self.selected = false
-        }
+        
+        let delayAction = SKAction.wait(forDuration: 0.1)
+        let moveToward = SKAction.move(to: handPosition, duration: 0.2 )
+        let moveSequence = SKAction.sequence([delayAction, moveToward])
+        self.run(moveSequence)
+        self.selected = false
+        
     }
     
     func swapToTable (tablePosition: CGPoint) {
