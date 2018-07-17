@@ -31,7 +31,7 @@ class Hand : SKSpriteNode {
     func addtoHand (card: Card) -> Card {
         heldCard = card
         
-        let placeInside = SKAction.scale(to: 0.33, duration: 0.2)
+        let placeInside = SKAction.scale(to: 0.5, duration: 0.2)
         let delayAction = SKAction.wait(forDuration: 0.1)
         let placeSequence = SKAction.sequence([placeInside, delayAction])
         heldCard.run(placeSequence)

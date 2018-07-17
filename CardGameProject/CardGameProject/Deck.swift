@@ -34,7 +34,7 @@ class Deck : SKSpriteNode {
         //move card to deck
         returnedCard = card
         let firstCard = 0.0
-        if returnedCard.redrawing == true && card.faceDown == false {
+        if returnedCard.redrawing == true && returnedCard.faceDown == false {
             //move sequence
             if returnedCard.selected == true {
                 returnedCard.Unhighlight()
@@ -51,6 +51,9 @@ class Deck : SKSpriteNode {
             else {
                 returnedCard.run(moveSequence)
             }
+        }
+        else if returnedCard.redrawing == false && returnedCard.selected == true {
+            returnedCard.Unhighlight()
         }
         return returnedCard
     }

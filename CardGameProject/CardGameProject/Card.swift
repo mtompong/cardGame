@@ -124,7 +124,7 @@ class Card : SKSpriteNode {
             self.selected = true
         }else{
             if self.redrawing == false{
-                let highlightHand = SKAction.scale(to: 0.5, duration: 0.1)
+                let highlightHand = SKAction.scale(to: 0.7, duration: 0.1)
                 self.run(highlightHand)
                 self.selected = true
             }
@@ -139,7 +139,7 @@ class Card : SKSpriteNode {
             self.selected = false
         }else{
             if self.redrawing == false{
-                let unhighlightHand = SKAction.scale(to: 0.33, duration: 0.1)
+                let unhighlightHand = SKAction.scale(to: 0.5, duration: 0.1)
                 self.run(unhighlightHand)
                 self.selected = false
             }
@@ -170,7 +170,7 @@ class Card : SKSpriteNode {
     
     func swapToHand(handPosition: CGPoint) {
         self.redrawing = false
-        let placeInside = SKAction.scale(to: 0.33, duration: 0.2)
+        let placeInside = SKAction.scale(to: 0.5, duration: 0.2)
         let delayAction = SKAction.wait(forDuration: 0.1)
         let moveToward = SKAction.move(to: handPosition, duration: 0.2 )
         let placeSequence = SKAction.sequence([placeInside, delayAction, moveToward])
