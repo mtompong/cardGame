@@ -124,7 +124,7 @@ class Card : SKSpriteNode {
             self.selected = true
         }else{
             if self.redrawing == false{
-                let highlightHand = SKAction.scale(to: 0.7, duration: 0.1)
+                let highlightHand = SKAction.scale(to: 1.33, duration: 0.1)
                 self.run(highlightHand)
                 self.selected = true
             }
@@ -139,7 +139,7 @@ class Card : SKSpriteNode {
             self.selected = false
         }else{
             if self.redrawing == false{
-                let unhighlightHand = SKAction.scale(to: 0.5, duration: 0.1)
+                let unhighlightHand = SKAction.scale(to: 1.0, duration: 0.1)
                 self.run(unhighlightHand)
                 self.selected = false
             }
@@ -152,29 +152,38 @@ class Card : SKSpriteNode {
         let moveToward = SKAction.move(to: handPosition, duration: 0.2 )
         let moveSequence = SKAction.sequence([delayAction, moveToward])
         self.run(moveSequence)
+        self.Unhighlight()
+        self.redrawing = false
         self.selected = false
         
     }
     
     func swapToTable (tablePosition: CGPoint) {
         if self.selected == true {
-            let placeOnTable = SKAction.scale(to: 1, duration: 0.2)
             let delayAction = SKAction.wait(forDuration: 0.1)
             let moveToward = SKAction.move(to: tablePosition, duration: 0.2 )
-            let moveSequence = SKAction.sequence([placeOnTable, delayAction, moveToward])
+            let moveSequence = SKAction.sequence([delayAction, moveToward])
             self.run(moveSequence)
+            self.zRotation = 0.0
+            self.zPosition = 0.0
+            self.Unhighlight()
             self.selected = false
             self.redrawing = true
         }
     }
     
-    func swapToHand(handPosition: CGPoint) {
-        self.redrawing = false
-        let placeInside = SKAction.scale(to: 0.5, duration: 0.2)
+    func swapToHand(handPosition: CGPoint, cardRotation: CGFloat, cardPlacement: CGFloat) {
+      
         let delayAction = SKAction.wait(forDuration: 0.1)
         let moveToward = SKAction.move(to: handPosition, duration: 0.2 )
-        let placeSequence = SKAction.sequence([placeInside, delayAction, moveToward])
+        let placeSequence = SKAction.sequence([delayAction, moveToward])
         self.run(placeSequence)
+        self.zRotation = cardRotation
+        self.zPosition = cardPlacement
+        self.Unhighlight()
+        self.selected = false
+        self.redrawing = false
+        
     }
 }
 

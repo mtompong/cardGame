@@ -19,6 +19,8 @@ class GameScene: SKScene {
     var counter = 0.5
     var xCord = 30
     var count = 0
+    let add_buttonPressedTexture = SKTexture(imageNamed: "add_button_pressed")
+    let add_buttonTexture = SKTexture(imageNamed: "add_button")
 
     
     override func didMove(to view: SKView) {
@@ -28,7 +30,8 @@ class GameScene: SKScene {
         addChild(bg)
         
         let deckTexture = SKTexture(imageNamed: "card_back")
-        let handTexture = SKTexture(imageNamed: "card_placer")
+        //let handTexture = SKTexture(imageNamed: "card_placer")
+        //let add_buttonTexture = SKTexture(imageNamed: "add_button")
         
 
        
@@ -43,79 +46,24 @@ class GameScene: SKScene {
         addChild(deck)
         
         //hand------------------------------
-        let hand1 = Hand(handTexture: handTexture)
-        hand1.position = CGPoint(x: 120, y: 150)
-        hand1.size = CGSize(width: 45.0, height: 44.0)
-        hand1.zRotation = 3 * CGFloat.pi / 2 + CGFloat.pi
-        addChild(hand1)
         
-        let hand2 = Hand(handTexture: handTexture)
-        hand2.position = CGPoint(x: 135.279, y: 102.977)
-        hand2.size = CGSize(width: 45.0, height: 44.0)
-        hand2.zRotation =  CGFloat.pi / 2 + 7 * CGFloat.pi / 6
-        addChild(hand2)
+        let hand = Hand(handTexture: add_buttonTexture)
+        hand.position = CGPoint(x: 200, y: 145)
+        hand.size = CGSize(width: 70.0, height: 70.0)
+        addChild(hand)
         
-        let hand3 = Hand(handTexture: handTexture)
-        hand3.position = CGPoint(x: 175.279, y: 73.915)
-        hand3.size = CGSize(width: 45.0, height: 44.0)
-        hand3.zRotation = 4 * CGFloat.pi / 3
-        addChild(hand3)
-        
-        let hand4 = Hand(handTexture: handTexture)
-        hand4.position = CGPoint(x: 224.721, y: 73.915)
-        hand4.size = CGSize(width: 45.0, height: 44.0)
-        hand4.zRotation = 5 * CGFloat.pi / 3
-        addChild(hand4)
-        
-        let hand5 = Hand(handTexture: handTexture)
-        hand5.position = CGPoint(x: 264.721, y: 102.977)
-        hand5.size = CGSize(width: 45.0, height: 44.0)
-        hand5.zRotation = 11 * CGFloat.pi / 6
-        addChild(hand5)
-        
-        let hand6 = Hand(handTexture: handTexture)
-        hand6.position = CGPoint(x: 280.0, y: 150)
-        hand6.size = CGSize(width: 45.0, height: 44.0)
-        hand6.zRotation = 2 * CGFloat.pi
-        addChild(hand6)
-        
-        let hand7 = Hand(handTexture: handTexture)
-        hand7.position = CGPoint(x: 264.721, y: 197.023)
-        hand7.size = CGSize(width: 45.0, height: 44.0)
-        hand7.zRotation = CGFloat.pi / 6
-        addChild(hand7)
-        
-        let hand8 = Hand(handTexture: handTexture)
-        hand8.position = CGPoint(x: 224.721, y: 226.085)
-        hand8.size = CGSize(width: 45.0, height: 44.0)
-        hand8.zRotation = CGFloat.pi / 3
-        addChild(hand8)
-        
-        let hand9 = Hand(handTexture: handTexture)
-        hand9.position = CGPoint(x: 175.279, y: 226.085)
-        hand9.size = CGSize(width: 45.0, height: 44.0)
-        hand9.zRotation = 2 * CGFloat.pi / 3
-        addChild(hand9)
-        
-        let hand10 = Hand(handTexture: handTexture)
-        hand10.position = CGPoint(x: 135.279, y: 197.023)
-        hand10.size = CGSize(width: 45.0, height: 44.0)
-        hand10.zRotation = 5 * CGFloat.pi / 6
-        addChild(hand10)
-        
-
-        
+  
         let card_placer_tail2 = SKSpriteNode(imageNamed: "Rcard_placer_tail")
-        card_placer_tail2.position = CGPoint(x:340, y: 180)
-        card_placer_tail2.size = CGSize(width: 120, height: 65.0)
+        card_placer_tail2.position = CGPoint(x:360, y: 180)
+        card_placer_tail2.size = CGSize(width: 150, height: 65.0)
         card_placer_tail2.zRotation = 3 * CGFloat.pi / 2
         addChild(card_placer_tail2)
   
         
         
         let card_placer_tail1 = SKSpriteNode(imageNamed: "Lcard_placer_tail")
-        card_placer_tail1.position = CGPoint(x:60, y: 180)
-        card_placer_tail1.size = CGSize(width: 120, height: 65)
+        card_placer_tail1.position = CGPoint(x:40, y: 180)
+        card_placer_tail1.size = CGSize(width: 150, height: 65)
         card_placer_tail1.zRotation = CGFloat.pi / 2
         addChild(card_placer_tail1)
      
@@ -216,68 +164,70 @@ class GameScene: SKScene {
         cardDrawn10.position = deck.position
         
         //test card
+        
         /*
         let test1 = Card(cardType: .random)
-        test1.position = CGPoint(x: 123.915, y: 424.721)
+        test1.position = CGPoint(x: 123.915, y: 174.721)
         test1.size = CGSize(width: 50, height: 70)
         test1.zRotation = (3 * CGFloat.pi / 2) + 5 * CGFloat.pi / 6
         addChild(test1)
        
         let test2 = Card(cardType: .random)
-        test2.position = CGPoint(x: 135.279, y: 447.023)
+        test2.position = CGPoint(x: 135.279, y: 197.023)
         test2.size = CGSize(width: 50, height: 70)
         test2.zRotation = (3 * CGFloat.pi / 2) + 3 * CGFloat.pi / 4
         addChild(test2)
         
         let test3 = Card(cardType: .random)
-        test3.position = CGPoint(x: 152.977, y: 464.721)
+        test3.position = CGPoint(x: 152.977, y: 214.72)
         test3.size = CGSize(width: 50, height: 70)
         test3.zRotation = (3 * CGFloat.pi / 2) + 2 * CGFloat.pi  / 3
         addChild(test3)
         
         let test4 = Card(cardType: .random)
-        test4.position = CGPoint(x: 175.279, y: 476.085)
+        test4.position = CGPoint(x: 175.279, y: 226.085)
         test4.size = CGSize(width: 50, height: 70)
         test4.zRotation = (3 * CGFloat.pi / 2) + 7 * CGFloat.pi / 12
         addChild(test4)
         
         let test5 = Card(cardType: .random)
-        test5.position = CGPoint(x: 200, y: 480)
+        test5.position = CGPoint(x: 200, y: 230)
         test5.size = CGSize(width: 50, height: 70)
          test5.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 2
         addChild(test5)
         
         let test6 = Card(cardType: .random)
-        test6.position = CGPoint(x: 224.721, y: 476.085)
+        test6.position = CGPoint(x: 224.721, y: 226.085)
         test6.size = CGSize(width: 50, height: 70)
          test6.zRotation = (3 * CGFloat.pi / 2) + 5 * CGFloat.pi / 12
         addChild(test6)
         
         let test7 = Card(cardType: .random)
-        test7.position = CGPoint(x: 247.023, y: 464.721)
+        test7.position = CGPoint(x: 247.023, y: 214.72)
         test7.size = CGSize(width: 50, height: 70)
          test7.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 3
         addChild(test7)
         
         let test8 = Card(cardType: .random)
-        test8.position = CGPoint(x: 264.721, y: 447.023)
+        test8.position = CGPoint(x: 264.721, y: 197.023)
         test8.size = CGSize(width: 50, height: 70)
          test8.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 4
         addChild(test8)
         
         let test9 = Card(cardType: .random)
-        test9.position = CGPoint(x: 276.085, y: 424.721)
+        test9.position = CGPoint(x: 276.085, y: 174.721)
         test9.size = CGSize(width: 50, height: 70)
          test9.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 6
         addChild(test9)
         
         let test10 = Card(cardType: .random)
-        test10.position = CGPoint(x: 280, y: 400)
+        test10.position = CGPoint(x: 280, y: 150)
         test10.size = CGSize(width: 50, height: 70)
          test10.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 12
         addChild(test10)
- 
         */
+ 
+ 
  
         counter = resetCounter(counter: counter)
     }
@@ -297,7 +247,7 @@ class GameScene: SKScene {
                 self.flipFirstDeal(card: self.firstTable, counter: self.counter)
             }
         }
-        //self.pointsOnCircleFor(numberOfPoints: 20, centerX: 200, centerY: 400, radius: 80)
+        //self.pointsOnCircleFor(numberOfPoints: 20, centerX: 200, centerY: 150, radius: 80)
         counter = resetCounter(counter: counter)
     }
     
@@ -315,6 +265,9 @@ class GameScene: SKScene {
                     //reshuffle cards & move to deck
                     
                     for card in dealtCards{
+                        if card.selected == true {
+                            card.Unhighlight()
+                        }
                         if card.redrawing == true {
                             counter += 0.3
                             let card = deck.redraw(card: card, deckLocation: deck.position, counter: counter )
@@ -341,11 +294,20 @@ class GameScene: SKScene {
                     let cardTableLocation = card.position
                     var switching = false
                     var handLocation : CGPoint? = nil
+                    var handRotation : CGFloat? = nil
+                    var handPlacement : CGFloat? = nil
+                    let redrawing = card.redrawing
                     for card in dealtCards{
                         if card.selected == true && card.redrawing == true {
                             card.Unhighlight()
-                        } else if card.redrawing == false && card.selected == true{
+                        }
+                        else if redrawing == false && card.selected == true && card.redrawing == false{
+                            card.Unhighlight()
+                        
+                        }else if redrawing == true && card.selected == true && card.redrawing == false{
                             handLocation = card.position
+                            handRotation = card.zRotation
+                            handPlacement = card.zPosition
                             card.swapToTable(tablePosition: cardTableLocation)
                             playerHand = playerHand.filter {$0 != card}
                             switching = true
@@ -353,7 +315,7 @@ class GameScene: SKScene {
                         
                     }
                     if switching == true {
-                        card.swapToHand(handPosition: handLocation!)
+                        card.swapToHand(handPosition: handLocation!, cardRotation: handRotation!, cardPlacement: handPlacement!)
                         playerHand.append(card)
                         checkHand(playerHand: playerHand)
                     }else{
@@ -363,13 +325,16 @@ class GameScene: SKScene {
             }
             
             if let hand = atPoint(location) as? Hand {
-                if touch.tapCount == 1 && hand.occupied == false {
+                hand.texture = add_buttonPressedTexture
+                hand.getCurrentHand(hand: playerHand)
+                if touch.tapCount == 1 {
                     
                     for card in dealtCards{
                         if card.selected == true && card.redrawing == true {
-                            let card = hand.addtoHand(card: card)
-                            card.movetoHand(handPosition: hand.position)
                             playerHand.append(card)
+                            let card = hand.addtoHand(card: card)
+                            card.movetoHand(handPosition: hand.cardPosition())
+                            hand.getCurrentHand(hand: playerHand)
                             checkHand(playerHand: playerHand)
                         }
                     }
@@ -380,6 +345,15 @@ class GameScene: SKScene {
         }
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let location = touch.location(in: self)
+            if let hand = atPoint(location) as? Hand {
+                hand.texture = add_buttonTexture
+            }
+        }
+        
+    }
     
     func revealTable(card: Card, cardPosition: CGPoint, counter: Double) -> Card {
          firstTable = card
