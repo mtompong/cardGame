@@ -17,11 +17,8 @@ class GameScene: SKScene {
     var cardPosition: [CGPoint] = []
     var playerHand :[Card] = []
     var counter = 0.5
-    var xCord = 30
     var count = 0
-    let add_buttonPressedTexture = SKTexture(imageNamed: "add_button_pressed")
-    let add_buttonTexture = SKTexture(imageNamed: "add_button")
-
+    let handPosition = cardHand(player: .player1)
     
     override func didMove(to view: SKView) {
         let bg = SKSpriteNode(imageNamed: "bg_blank")
@@ -50,12 +47,6 @@ class GameScene: SKScene {
         
         //hand------------------------------
         
-        let hand = Hand(handTexture: add_buttonTexture)
-        hand.position = CGPoint(x: 200, y: 145)
-        hand.size = CGSize(width: 70.0, height: 70.0)
-        addChild(hand)
-        
-  
         let card_placer_tail2 = SKSpriteNode(imageNamed: "Rcard_placer_tail")
         card_placer_tail2.position = CGPoint(x:360, y: 180)
         card_placer_tail2.size = CGSize(width: 150, height: 65.0)
@@ -293,6 +284,7 @@ class GameScene: SKScene {
             }
             
             if let card = atPoint(location) as? Card {
+                
                 if touch.tapCount == 1 {
                     let cardTableLocation = card.position
                     var switching = false
@@ -325,38 +317,31 @@ class GameScene: SKScene {
                         card.Highlight()
                     }
                 }
-            }
-            
-            if let hand = atPoint(location) as? Hand {
-                hand.texture = add_buttonPressedTexture
-                hand.getCurrentHand(hand: playerHand)
-                if touch.tapCount == 1 {
-                    
+                //double tap card
+                if touch.tapCount == 2 {
                     for card in dealtCards{
                         if card.selected == true && card.redrawing == true {
+                            card.zRotation = handPosition.cardRotation[playerHand.count]
+                            let Zposition = CGFloat(playerHand.count)
+                            card.zPosition = Zposition
+                            let delayAction = SKAction.wait(forDuration: 0.2)
+                            let moveToward = SKAction.move(to: handPosition.cardPostion[playerHand.count], duration: 0.2 )
+                            let moveSequence = SKAction.sequence([delayAction, moveToward])
+                            card.run(moveSequence)
+                            card.Unhighlight()
+                            card.redrawing = false
+                            card.selected = false
                             playerHand.append(card)
-                            let card = hand.addtoHand(card: card)
-                            card.movetoHand(handPosition: hand.cardPosition())
-                            hand.getCurrentHand(hand: playerHand)
                             checkHand(playerHand: playerHand)
                         }
                     }
                 }
+                
             }
-            
-            
+          
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let location = touch.location(in: self)
-            if let hand = atPoint(location) as? Hand {
-                hand.texture = add_buttonTexture
-            }
-        }
-        
-    }
     
     func revealTable(card: Card, cardPosition: CGPoint, counter: Double) -> Card {
          firstTable = card
