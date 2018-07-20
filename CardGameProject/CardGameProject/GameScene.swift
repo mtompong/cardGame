@@ -30,13 +30,16 @@ class GameScene: SKScene {
         addChild(bg)
         
         let deckTexture = SKTexture(imageNamed: "card_back")
-        //let handTexture = SKTexture(imageNamed: "card_placer")
-        //let add_buttonTexture = SKTexture(imageNamed: "add_button")
+        let player2Texture = SKTexture(imageNamed: "player_2")
         
-
+        let player2 = Opponent(opTexture: player2Texture)
+        player2.position = CGPoint(x: 200, y: 720)
+        player2.size = CGSize(width: 100, height: 30)
+        addChild(player2)
        
         let reshuffle_center = SKSpriteNode(imageNamed: "reshuffle_texture")
         reshuffle_center.position = CGPoint(x: 200, y: 480)
+        reshuffle_center.zPosition = -1.0
         addChild(reshuffle_center)
         
         //deck------------------------------
@@ -165,67 +168,67 @@ class GameScene: SKScene {
         
         //test card
         
-        /*
+        
         let test1 = Card(cardType: .random)
-        test1.position = CGPoint(x: 123.915, y: 174.721)
+        test1.position = CGPoint(x: 123.915, y: 655.28)
         test1.size = CGSize(width: 50, height: 70)
-        test1.zRotation = (3 * CGFloat.pi / 2) + 5 * CGFloat.pi / 6
+        test1.zRotation = (3 * CGFloat.pi / 2) + 7 * CGFloat.pi / 6
         addChild(test1)
        
         let test2 = Card(cardType: .random)
-        test2.position = CGPoint(x: 135.279, y: 197.023)
+        test2.position = CGPoint(x: 135.279, y: 632.98)
         test2.size = CGSize(width: 50, height: 70)
-        test2.zRotation = (3 * CGFloat.pi / 2) + 3 * CGFloat.pi / 4
+        test2.zRotation = (3 * CGFloat.pi / 2) + 5 * CGFloat.pi / 4
         addChild(test2)
         
         let test3 = Card(cardType: .random)
-        test3.position = CGPoint(x: 152.977, y: 214.72)
+        test3.position = CGPoint(x: 152.977, y: 615.28)
         test3.size = CGSize(width: 50, height: 70)
-        test3.zRotation = (3 * CGFloat.pi / 2) + 2 * CGFloat.pi  / 3
+        test3.zRotation = (3 * CGFloat.pi / 2) + 4 * CGFloat.pi  / 3
         addChild(test3)
         
         let test4 = Card(cardType: .random)
-        test4.position = CGPoint(x: 175.279, y: 226.085)
+        test4.position = CGPoint(x: 175.279, y: 603.92)
         test4.size = CGSize(width: 50, height: 70)
-        test4.zRotation = (3 * CGFloat.pi / 2) + 7 * CGFloat.pi / 12
+        test4.zRotation = (3 * CGFloat.pi / 2) + 17 * CGFloat.pi / 12
         addChild(test4)
         
         let test5 = Card(cardType: .random)
-        test5.position = CGPoint(x: 200, y: 230)
+        test5.position = CGPoint(x: 200, y: 600)
         test5.size = CGSize(width: 50, height: 70)
-         test5.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 2
+        test5.zRotation = (3 * CGFloat.pi / 2) + 3 * CGFloat.pi / 2
         addChild(test5)
         
         let test6 = Card(cardType: .random)
-        test6.position = CGPoint(x: 224.721, y: 226.085)
+        test6.position = CGPoint(x: 224.721, y: 603.92)
         test6.size = CGSize(width: 50, height: 70)
-         test6.zRotation = (3 * CGFloat.pi / 2) + 5 * CGFloat.pi / 12
+        test6.zRotation = (3 * CGFloat.pi / 2) + 19 * CGFloat.pi / 12
         addChild(test6)
         
         let test7 = Card(cardType: .random)
-        test7.position = CGPoint(x: 247.023, y: 214.72)
+        test7.position = CGPoint(x: 247.023, y: 615.28)
         test7.size = CGSize(width: 50, height: 70)
-         test7.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 3
+        test7.zRotation = (3 * CGFloat.pi / 2) + 5 * CGFloat.pi / 3
         addChild(test7)
         
         let test8 = Card(cardType: .random)
-        test8.position = CGPoint(x: 264.721, y: 197.023)
+        test8.position = CGPoint(x: 264.721, y: 632.98)
         test8.size = CGSize(width: 50, height: 70)
-         test8.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 4
+        test8.zRotation = (3 * CGFloat.pi / 2) + 7 * CGFloat.pi / 4
         addChild(test8)
         
         let test9 = Card(cardType: .random)
-        test9.position = CGPoint(x: 276.085, y: 174.721)
+        test9.position = CGPoint(x: 276.085, y: 655.28)
         test9.size = CGSize(width: 50, height: 70)
-         test9.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 6
+        test9.zRotation = (3 * CGFloat.pi / 2) + 11 * CGFloat.pi / 6
         addChild(test9)
         
         let test10 = Card(cardType: .random)
-        test10.position = CGPoint(x: 280, y: 150)
+        test10.position = CGPoint(x: 280, y: 680)
         test10.size = CGSize(width: 50, height: 70)
-         test10.zRotation = (3 * CGFloat.pi / 2) + CGFloat.pi / 12
+        test10.zRotation = (3 * CGFloat.pi / 2) + 23 * CGFloat.pi / 12
         addChild(test10)
-        */
+        
  
  
  
@@ -247,7 +250,7 @@ class GameScene: SKScene {
                 self.flipFirstDeal(card: self.firstTable, counter: self.counter)
             }
         }
-        //self.pointsOnCircleFor(numberOfPoints: 20, centerX: 200, centerY: 150, radius: 80)
+        //self.pointsOnCircleFor(numberOfPoints: 20, centerX: 200, centerY: 680, radius: 80)
         counter = resetCounter(counter: counter)
     }
     
@@ -405,9 +408,9 @@ class GameScene: SKScene {
     }
     
     func callGameOver () {
-        let reveal =  SKTransition.reveal(with: .down, duration: 0.5)
+        let transition = SKTransition.fade(withDuration: 1.0)
         let gameOverScene = GameOverScene(size: self.size, won: true)
-        self.view?.presentScene(gameOverScene, transition: reveal)
+        self.view?.presentScene(gameOverScene, transition: transition)
     }
     
     func flipFirstDeal(card: Card, counter: Double){
