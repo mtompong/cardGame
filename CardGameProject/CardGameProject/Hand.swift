@@ -5,7 +5,7 @@
 //  Created by Mark Tompong on 7/6/18.
 //  Copyright © 2018 Mark Tompong. All rights reserved.
 //
-
+/*
 import SpriteKit
 import GameplayKit
 
@@ -109,3 +109,4 @@ class Hand : SKSpriteNode {
 
     
 }
+ */

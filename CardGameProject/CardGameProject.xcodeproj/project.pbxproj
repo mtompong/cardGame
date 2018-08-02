@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CF08848E20FFE2DC00C63C5E /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF08848D20FFE2DC00C63C5E /* Opponent.swift */; };
-		CF08848F20FFE2DC00C63C5E /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF08848D20FFE2DC00C63C5E /* Opponent.swift */; };
-		CF08849020FFE2DC00C63C5E /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF08848D20FFE2DC00C63C5E /* Opponent.swift */; };
 		CF84E309210270DE00CA2C5A /* CardHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF84E308210270DE00CA2C5A /* CardHand.swift */; };
 		CF84E30A210270DE00CA2C5A /* CardHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF84E308210270DE00CA2C5A /* CardHand.swift */; };
 		CF84E30B210270DE00CA2C5A /* CardHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF84E308210270DE00CA2C5A /* CardHand.swift */; };
@@ -18,8 +16,6 @@
 		CF8B5CAD20F4C79200243529 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B5CAA20F4C76600243529 /* GameOver.swift */; };
 		CF97214D20EC267800A9D707 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF1DD20E5E1340070DE1B /* Card.swift */; };
 		CF97214E20EC267900A9D707 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF1DD20E5E1340070DE1B /* Card.swift */; };
-		CF97214F20EC268800A9D707 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF18420E5B6D80070DE1B /* GameScene.swift */; };
-		CF97215020EC268800A9D707 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF18420E5B6D80070DE1B /* GameScene.swift */; };
 		CF97215120EC26A500A9D707 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF18620E5B6D80070DE1B /* GameViewController.swift */; };
 		CF97215220EC26A600A9D707 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF18620E5B6D80070DE1B /* GameViewController.swift */; };
 		CF97215420ECC4F700A9D707 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9B553720EB523800F3D1B8 /* Deck.swift */; };
@@ -28,6 +24,10 @@
 		CFA3E4EC20F0415500844E42 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA3E4EB20F0415500844E42 /* Hand.swift */; };
 		CFA3E4ED20F0415500844E42 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA3E4EB20F0415500844E42 /* Hand.swift */; };
 		CFA3E4EE20F0415500844E42 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA3E4EB20F0415500844E42 /* Hand.swift */; };
+		CFB85D9121072117004EA7F2 /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF08848D20FFE2DC00C63C5E /* Opponent.swift */; };
+		CFB85D9221072118004EA7F2 /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF08848D20FFE2DC00C63C5E /* Opponent.swift */; };
+		CFB85D9521072130004EA7F2 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF18420E5B6D80070DE1B /* GameScene.swift */; };
+		CFB85D9621072131004EA7F2 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF18420E5B6D80070DE1B /* GameScene.swift */; };
 		CFCAF17F20E5B6D80070DE1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCAF17E20E5B6D80070DE1B /* AppDelegate.swift */; };
 		CFCAF18120E5B6D80070DE1B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CFCAF18020E5B6D80070DE1B /* GameScene.sks */; };
 		CFCAF18320E5B6D80070DE1B /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CFCAF18220E5B6D80070DE1B /* Actions.sks */; };
@@ -326,16 +326,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFB85D9521072130004EA7F2 /* GameScene.swift in Sources */,
 				CF84E30A210270DE00CA2C5A /* CardHand.swift in Sources */,
 				CF97215120EC26A500A9D707 /* GameViewController.swift in Sources */,
+				CFB85D9121072117004EA7F2 /* Opponent.swift in Sources */,
 				CF97214D20EC267800A9D707 /* Card.swift in Sources */,
 				CF8B5CAC20F4C79100243529 /* GameOver.swift in Sources */,
 				CFA3E4ED20F0415500844E42 /* Hand.swift in Sources */,
 				CF97215420ECC4F700A9D707 /* Deck.swift in Sources */,
 				CFDD14E620F95441005B75FC /* MenuScene.swift in Sources */,
-				CF97214F20EC268800A9D707 /* GameScene.swift in Sources */,
 				CFCAF19A20E5B6D90070DE1B /* CardGameProjectTests.swift in Sources */,
-				CF08848F20FFE2DC00C63C5E /* Opponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,16 +343,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFB85D9621072131004EA7F2 /* GameScene.swift in Sources */,
 				CF84E30B210270DE00CA2C5A /* CardHand.swift in Sources */,
 				CF97215220EC26A600A9D707 /* GameViewController.swift in Sources */,
+				CFB85D9221072118004EA7F2 /* Opponent.swift in Sources */,
 				CF9B553A20EB523800F3D1B8 /* Deck.swift in Sources */,
 				CF8B5CAD20F4C79200243529 /* GameOver.swift in Sources */,
 				CFA3E4EE20F0415500844E42 /* Hand.swift in Sources */,
 				CF97214E20EC267900A9D707 /* Card.swift in Sources */,
 				CFDD14E720F95441005B75FC /* MenuScene.swift in Sources */,
-				CF97215020EC268800A9D707 /* GameScene.swift in Sources */,
 				CFCAF1A520E5B6D90070DE1B /* CardGameProjectUITests.swift in Sources */,
-				CF08849020FFE2DC00C63C5E /* Opponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

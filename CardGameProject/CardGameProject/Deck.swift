@@ -10,9 +10,9 @@ import SpriteKit
 import GameplayKit
 
 
-var returnedCard = Card(cardType: .random)
+
 class Deck : SKSpriteNode {
-    
+    var returnedCard = Card(cardType: .random, isPlayer: true)
   
     let Decktexture :SKTexture
     required init?(coder aDecoder: NSCoder) {
@@ -58,17 +58,23 @@ class Deck : SKSpriteNode {
         return returnedCard
     }
     
-    func reposition(card: Card, cardPosition: CGPoint, counter: Double) -> Card {
+    func reposition(card: Card, cardPosition: CGPoint, hand: [Card] , counter: Double) -> Card {
         returnedCard = card
         if returnedCard.redrawing == true {
             let firstCard = 0.0
             let delayAction = SKAction.wait(forDuration: 0.5 * counter)
             let firstMove = SKAction.wait(forDuration: 0.5 * firstCard)
+            let lastCard = SKAction.wait(forDuration: 0.5)
             let movetoTable = SKAction.move(to: cardPosition, duration: 0.2)
-            let firstSequence = SKAction.sequence([firstMove, movetoTable])
+            let firstSequence = SKAction.sequence([firstMove, movetoTable])          
             let moveSequence = SKAction.sequence([delayAction, movetoTable])
+            let lastCardSequence = SKAction.sequence([lastCard, movetoTable])
             if counter == 0.3 {
                 returnedCard.run(firstSequence)
+            }
+            else if hand.count == 9 {
+                
+                returnedCard.run(lastCardSequence)
             }
             else {
                 returnedCard.run(moveSequence)

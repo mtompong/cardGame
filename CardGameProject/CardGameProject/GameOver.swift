@@ -20,7 +20,7 @@ class GameOverScene: SKScene {
     init(size: CGSize, won:Bool) {
         super.init(size: size)
     
-        let message = won ? "You Won!" : "You Lose :["
+        let message = won ? "Victory" : "Defeat"
         
     
         let label = SKLabelNode(fontNamed: "Futura-CondensedMedium")
@@ -100,7 +100,7 @@ class GameOverScene: SKScene {
     }
     
     
-    /// Stubbed out play again on click method
+  
     func handlePlayAgainButtonClick() {
         startGame()
     }
