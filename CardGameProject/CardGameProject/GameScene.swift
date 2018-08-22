@@ -28,6 +28,18 @@ class GameScene: SKScene {
     let cardMovePosition = CGPoint(x: 350, y: 650)
     var player2Hand: [Card] = []
     var player2Table: [Card] = []
+    let countDown3 = SKTexture(imageNamed: "countDown_3")
+    let countDown2 = SKTexture(imageNamed: "countDown_2")
+    let countDown1 = SKTexture(imageNamed: "countDown_1")
+    let countDownGo = SKTexture(imageNamed: "countDown_Go")
+    let victoryScreen = SKTexture(imageNamed: "victoryScreen")
+    let defeatScreen = SKTexture(imageNamed: "defeatScreen")
+    let mainMenu = SKTexture(imageNamed: "mainMenu")
+    let mainMenuPressed = SKTexture(imageNamed: "mainMenuPressed")
+    let playAgain = SKTexture(imageNamed: "playagain")
+    let playAgainPressed = SKTexture(imageNamed: "playagainpressed")
+    var selectedButton : SKSpriteNode?
+    
  
     
     
@@ -38,6 +50,7 @@ class GameScene: SKScene {
         addChild(bg)
         
         let deckTexture = SKTexture(imageNamed: "card_back")
+        
 
         let player2Node = SKSpriteNode(imageNamed: "player_2")
         player2Node.position = CGPoint(x: 200, y: 720)
@@ -227,21 +240,60 @@ class GameScene: SKScene {
         opponentCard10.size = CGSize(width: 50, height: 70)
         addChild(opponentCard10)
         player2Table.append(opponentCard10)
+        /////////////////////////////////////////////
+        
+        
+        let victoryPlate = gameOverMenu(gameOverMenu: victoryScreen, mainMenu: mainMenu, playAgain: playAgain, mainMenuPressed: mainMenuPressed, playAgainPressed: playAgainPressed, currentScene: self)
+        victoryPlate.position = CGPoint(x: 200, y: 300)
+        victoryPlate.size = CGSize(width: 300, height: 200)
+        victoryPlate.isUserInteractionEnabled = true
+        addChild(victoryPlate)
+        victoryPlate.zPosition = 11
+        
+        let countDown = Countdown(countDown3: countDown3 , countDown2: countDown2, countDown1: countDown1, countDownGo: countDownGo)
+        let counDownStartPosition = CGPoint(x: 200, y: 360)
+        countDown.position = CGPoint(x: -100 , y: 360)
+        countDown.size = CGSize(width: 200, height: 200)
+         addChild(countDown)
+        
+       countDown.zPosition = 11
+        countDown.startCountDown(startlocation: counDownStartPosition )
       
+        
  
         counter = resetCounter(counter: counter)
+        /////////////////////////////////////////////
+        
     }
     
     override func sceneDidLoad() {
-
+        
+        let disableTouch = SKAction.run({
+            for card in self.dealtCards {
+                card.isUserInteractionEnabled = true
+            }
+        })
+        
+        let delay = SKAction.wait(forDuration: 3.6)
+       
+        let enableTouch = SKAction.run({
+            for card in self.dealtCards {
+                card.isUserInteractionEnabled = false
+            }
+        })
+        
+        let countDownDisable = SKAction.sequence([disableTouch, delay, enableTouch])
+        
+        self.run(countDownDisable)
         
         let player2 = Opponent(opTexture: player2Texture)
         player2.position = CGPoint(x: 200, y: 720)
         player2.size = CGSize(width: 100, height: 30)
         addChild(player2)
        
+        
      
-        //let player2handType = player2.determineCardType(playerHand: self.player2Table)
+
         let player2handType = player2.player2Type()
         
         
@@ -320,17 +372,22 @@ class GameScene: SKScene {
         
     
         
-
-        let delayAction = SKAction.wait(forDuration: 2.0)
+        let delaylastCard = SKAction.wait(forDuration: 2)
+        let delayAction = SKAction.wait(forDuration: 4)
         let tabletoDeck = SKAction.wait(forDuration: 2.5)
-        //let nextTurn = SKAction.wait(forDuration: self.opCounter + 3.5)
+       
         let player2FullTurn = SKAction.sequence([tabletoDeck,player2Action])
-        let player2Repeat = SKAction.repeatForever(player2FullTurn)
+        
+        let player2lastCard = SKAction.sequence([delaylastCard,player2Action])
+        
+        let player2RegularAction = SKAction.repeatForever(player2FullTurn)
+        let player2LastAction = SKAction.repeatForever(player2lastCard)
+    
         
         
-        let startgameSequence = SKAction.sequence([dealTable, delayAction, player2Repeat])
+        let startgameSequence = SKAction.sequence([dealTable, delayAction])
         
-        self.run(startgameSequence)
+        self.run(startgameSequence, completion: {() -> Void in self.player2Logic(regularTurn:  player2RegularAction, lastTurn: player2LastAction, playerhand: self.player2Hand)})
       
         
         
@@ -348,39 +405,60 @@ class GameScene: SKScene {
         counter = resetCounter(counter: counter)
         for touch in touches {
             let location = touch.location(in: self)
+            
             if let deck = atPoint(location) as? Deck {
                 if touch.tapCount == 1 {
+                   
                     
-                    //reshuffle table & move to deck
+                    let redraw = SKAction.run({
+                        //reshuffle table & move to deck
+                        for card in self.dealtCards{
+                            if card.selected == true {
+                                card.Unhighlight()
+                            }
+                            if card.redrawing == true {
+                                card.isUserInteractionEnabled = true
+                                self.counter += 0.3
+                                let card = deck.redraw(card: card, deckLocation: deck.position,counter: self.counter )
+                                card.flip(counter: self.counter)
+                            }
+                        }
+                        
+                        //deal new table & reposition
+                        var position = 0
+                        for card in self.dealtCards{
+                            if card.redrawing == true {
+                                self.counter += 0.3
+                                let card = deck.reposition(card: card, cardPosition: self.cardPosition[position], hand: self.playerHand ,counter: self.counter)
+                                position += 1
+                                card.flip(counter: self.counter)
+                            }
+                        }
+                        
+                    })
                     
-                    for card in dealtCards{
-                        if card.selected == true {
-                            card.Unhighlight()
+                    let reEnableTouch = SKAction.run({
+                        for card in self.dealtCards{
+                            if card.redrawing == true {
+                                card.isUserInteractionEnabled = false
+                            }
                         }
-                        if card.redrawing == true {
-                            counter += 0.3
-                            let card = deck.redraw(card: card, deckLocation: deck.position,counter: counter )
-                            card.flip(counter: counter)
-                        }
-                    }
+                    })
+                    let delayAction = SKAction.wait(forDuration: 0.5)
+                    self.run(SKAction.sequence([redraw, delayAction]),completion: {self.run(reEnableTouch)})
                     
-                    //deal new table & reposition
-                    var position = 0
-                    for card in dealtCards{
-                        if card.redrawing == true {
-                            counter += 0.3
-                            let card = deck.reposition(card: card, cardPosition: cardPosition[position], hand: playerHand ,counter: counter)
-                            position += 1
-                            card.flip(counter: counter)
-                        }
-                    }
                 }
                 counter = resetCounter(counter: counter)
+                
             }
+            
             
             if let card = atPoint(location) as? Card {
                 if card.isPlayer == true {
-                    if touch.tapCount == 1 {
+                    var touches = touch.tapCount
+                    switch touches {
+                        
+                    case 1:
                         let cardTableLocation = card.position
                         var switching = false
                         var handLocation : CGPoint? = nil
@@ -411,18 +489,23 @@ class GameScene: SKScene {
                         }else{
                             card.Highlight()
                         }
-                    }
-                    //double tap card
-                    if touch.tapCount == 2 {
+                        
+                        
+                        break
+                        
+                    case 2:
+                        
                         for card in dealtCards{
                             if card.selected == true && card.redrawing == true {
+                                //isUserInteractionEnabled is backwards
+                                card.isUserInteractionEnabled = true
                                 let Zposition = CGFloat(playerHand.count)
                                 card.zPosition = Zposition
                                 let rotateAction = SKAction.rotate(toAngle: handPosition.cardRotation[playerHand.count], duration: 0.2)
                                 let delayAction = SKAction.wait(forDuration: 0.1)
                                 let moveToward = SKAction.move(to: handPosition.cardPostion[playerHand.count], duration: 0.2 )
-                                let moveSequence = SKAction.sequence([rotateAction,delayAction, moveToward])
-                                card.run(moveSequence)
+                               
+                                card.run(SKAction.sequence([rotateAction,delayAction, moveToward]), completion: {() -> Void in card.isUserInteractionEnabled = false})
                                 card.Unhighlight()
                                 card.redrawing = false
                                 card.selected = false
@@ -430,6 +513,11 @@ class GameScene: SKScene {
                                 checkHand(playerHand: playerHand, isPlayer: true)
                             }
                         }
+                        break
+                        
+                    default:
+                        touches = 0
+                        
                     }
                 }
             }
@@ -437,6 +525,8 @@ class GameScene: SKScene {
         }
     }
     
+    
+
     
     func revealTable(card: Card, cardPosition: CGPoint, counter: Double) -> Card {
          firstTable = card
@@ -485,6 +575,7 @@ class GameScene: SKScene {
         }
         if counter == 10{
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.removeAction(forKey: "player2finalAction")
                 self.callGameOver( isPlayer: isPlayer)
                 
             }
@@ -494,11 +585,13 @@ class GameScene: SKScene {
     func callGameOver (isPlayer: Bool) {
         
         if isPlayer == true{
+            self.removeAllActions()
             let transition = SKTransition.fade(withDuration: 1.0)
             let gameOverScene = GameOverScene(size: self.size, won: true)
             self.view?.presentScene(gameOverScene, transition: transition)
         }
         else {
+            self.removeAllActions()
             let transition = SKTransition.fade(withDuration: 1.0)
             let gameOverScene = GameOverScene(size: self.size, won: false)
             self.view?.presentScene(gameOverScene, transition: transition)
@@ -512,6 +605,20 @@ class GameScene: SKScene {
         if card.faceDown == true {
             card.flip(counter: counter)
         }
+    }
+    
+    func player2Logic (regularTurn: SKAction, lastTurn: SKAction, playerhand: [Card]) {
+        
+        if playerhand.count != 9 {
+            self.run(lastTurn, withKey: "player2regularAction")
+            }
+        
+        if playerhand.count == 9 {
+            self.removeAction(forKey: "player2regularAction")
+            self.run(regularTurn, withKey: "player2finalAction")
+            
+        }
+        
     }
 
     /* public func pointsOnCircleFor(numberOfPoints: UInt, centerX: CGFloat, centerY: CGFloat, radius: CGFloat, precision: UInt = 2) -> [CGPoint] {

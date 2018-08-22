@@ -21,7 +21,7 @@ class MenuScene : SKScene {
         //Set up start button
         startButton = SKSpriteNode(texture: startButtonTexture)
         startButton.position = CGPoint(x: size.width / 2, y: size.height / 4 - startButton.size.height / 2)
-        startButton.size = CGSize(width: 200, height: 100)
+        startButton.size = CGSize(width: 150, height: 50)
         
         addChild(startButton)
     }
