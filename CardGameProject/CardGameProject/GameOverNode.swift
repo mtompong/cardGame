@@ -40,12 +40,12 @@ class gameOverMenu : SKSpriteNode{
     
        
         playAgainButton = SKSpriteNode(texture: playAgain)
-        playAgainButton.position = CGPoint(x: -80,y: 330)
+        playAgainButton.position = CGPoint(x: -80,y: -30)
         playAgainButton.size = CGSize(width: 100, height: 33.33)
         addChild(playAgainButton)
         
         mainMenuButton = SKSpriteNode(texture: mainMenu)
-        mainMenuButton.position = CGPoint(x: 80,y: 330)
+        mainMenuButton.position = CGPoint(x: 80,y: -30)
         mainMenuButton.size = CGSize(width: 100, height: 33.33)
         addChild(mainMenuButton)
     }
@@ -161,6 +161,13 @@ class gameOverMenu : SKSpriteNode{
         })
         
         run(SKAction.sequence([delay, sceneChange]))
+    }
+    
+    func movetoScreen (slidePosition: CGPoint, startPosition: CGPoint) {
+        let moveTo = SKAction.move(to: slidePosition, duration: 0.3)
+        let reAdjust = SKAction.move(to: startPosition, duration: 0.2)
+        let slideSequence = SKAction.sequence([moveTo,reAdjust])
+        self.run(slideSequence)
     }
     
 }

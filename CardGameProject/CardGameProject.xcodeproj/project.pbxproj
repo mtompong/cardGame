@@ -12,6 +12,9 @@
 		CF67E26521200EC00009C611 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF67E26421200EC00009C611 /* Countdown.swift */; };
 		CF67E26621200EC00009C611 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF67E26421200EC00009C611 /* Countdown.swift */; };
 		CF67E26721200EC00009C611 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF67E26421200EC00009C611 /* Countdown.swift */; };
+		CF6924C721365995002FD8A8 /* GlowEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6924C621365995002FD8A8 /* GlowEffect.swift */; };
+		CF6924C821365995002FD8A8 /* GlowEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6924C621365995002FD8A8 /* GlowEffect.swift */; };
+		CF6924C921365995002FD8A8 /* GlowEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6924C621365995002FD8A8 /* GlowEffect.swift */; };
 		CF84E309210270DE00CA2C5A /* CardHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF84E308210270DE00CA2C5A /* CardHand.swift */; };
 		CF84E30A210270DE00CA2C5A /* CardHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF84E308210270DE00CA2C5A /* CardHand.swift */; };
 		CF84E30B210270DE00CA2C5A /* CardHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF84E308210270DE00CA2C5A /* CardHand.swift */; };
@@ -71,6 +74,7 @@
 		CF08848D20FFE2DC00C63C5E /* Opponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opponent.swift; sourceTree = "<group>"; };
 		CF0EB5EC2124CD0C00EFA5CE /* GameOverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverNode.swift; sourceTree = "<group>"; };
 		CF67E26421200EC00009C611 /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countdown.swift; sourceTree = "<group>"; };
+		CF6924C621365995002FD8A8 /* GlowEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowEffect.swift; sourceTree = "<group>"; };
 		CF84E308210270DE00CA2C5A /* CardHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHand.swift; sourceTree = "<group>"; };
 		CF8B5CAA20F4C76600243529 /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		CF9B553720EB523800F3D1B8 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 				CFCAF1DD20E5E1340070DE1B /* Card.swift */,
 				CF67E26421200EC00009C611 /* Countdown.swift */,
 				CF08848D20FFE2DC00C63C5E /* Opponent.swift */,
+				CF6924C621365995002FD8A8 /* GlowEffect.swift */,
 				CFA3E4EB20F0415500844E42 /* Hand.swift */,
 				CF9B553720EB523800F3D1B8 /* Deck.swift */,
 				CF84E308210270DE00CA2C5A /* CardHand.swift */,
@@ -319,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF6924C721365995002FD8A8 /* GlowEffect.swift in Sources */,
 				CF84E309210270DE00CA2C5A /* CardHand.swift in Sources */,
 				CFCAF18520E5B6D80070DE1B /* GameScene.swift in Sources */,
 				CFCAF18720E5B6D80070DE1B /* GameViewController.swift in Sources */,
@@ -338,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF6924C821365995002FD8A8 /* GlowEffect.swift in Sources */,
 				CFB85D9521072130004EA7F2 /* GameScene.swift in Sources */,
 				CF84E30A210270DE00CA2C5A /* CardHand.swift in Sources */,
 				CF97215120EC26A500A9D707 /* GameViewController.swift in Sources */,
@@ -357,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF6924C921365995002FD8A8 /* GlowEffect.swift in Sources */,
 				CFB85D9621072131004EA7F2 /* GameScene.swift in Sources */,
 				CF84E30B210270DE00CA2C5A /* CardHand.swift in Sources */,
 				CF97215220EC26A600A9D707 /* GameViewController.swift in Sources */,

@@ -214,7 +214,7 @@ class Card : SKSpriteNode {
     func movetoHand (handPosition: CGPoint) {
         
         let delayAction = SKAction.wait(forDuration: 0.1)
-        let moveToward = SKAction.move(to: handPosition, duration: 0.2 )
+        let moveToward = SKAction.move(to: handPosition, duration: 0.2)
         let moveSequence = SKAction.sequence([delayAction, moveToward])
         self.run(moveSequence)
         self.Unhighlight()
@@ -251,5 +251,36 @@ class Card : SKSpriteNode {
         
     }
 }
+
+extension SKSpriteNode {
+    
+    func addBloomtoHand(radius: Float = 10, intensity: Float = 3){
+        let effectNode = SKEffectNode()
+        effectNode.shouldRasterize = true
+        
+        addChild(effectNode)
+        effectNode.addChild(SKSpriteNode(texture: texture))
+        effectNode.filter = CIFilter(name: "CIBloom", withInputParameters: ["inputRadius": radius, "inputIntensity": intensity])
+        effectNode.zPosition = 11
+        let fadeOut = SKAction.fadeOut(withDuration: 0.3)
+        effectNode.run(fadeOut)
+    }
+    
+    func addGlowtoHand(radius: Float = 10){
+        let effectNode = SKEffectNode()
+        effectNode.shouldRasterize = true
+        
+        addChild(effectNode)
+        effectNode.addChild(SKSpriteNode(texture: texture))
+        effectNode.filter = CIFilter(name: "CIGaussianBlur", withInputParameters: ["inputRadius": radius])
+        effectNode.zPosition = -1
+        let fade = SKAction.fadeOut(withDuration: 0.3)
+        effectNode.run(fade)
+    }
+    
+    
+    
+}
+
 
 

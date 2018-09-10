@@ -18,6 +18,7 @@ class GameScene: SKScene {
     var dealtCards: [Card] = []
     var cardPosition: [CGPoint] = []
     var playerHand :[Card] = []
+    var gameOver : Bool = false
     var counter = 0.0
     var opCounter = 0.0
     var count = 0
@@ -57,32 +58,37 @@ class GameScene: SKScene {
         player2Node.size = CGSize(width: 100, height: 30)
         addChild(player2Node)
  
-        let reshuffle_center = SKSpriteNode(imageNamed: "reshuffle_texture")
-        reshuffle_center.position = CGPoint(x: 200, y: 480)
-        reshuffle_center.zPosition = -1.0
-        addChild(reshuffle_center)
         
         //deck------------------------------
         let deck = Deck(Decktexture: deckTexture)
         deck.position = CGPoint(x: 360, y: 360)
-        deck.size = CGSize(width: 50, height: 70)
         addChild(deck)
         
         //hand------------------------------
+     
+      let fadeIn = SKAction.fadeIn(withDuration: 1.0)
+     
         
         let card_placer_tail2 = SKSpriteNode(imageNamed: "Rcard_placer_tail")
         card_placer_tail2.position = CGPoint(x:360, y: 180)
-        card_placer_tail2.size = CGSize(width: 150, height: 65.0)
         card_placer_tail2.zRotation = 3 * CGFloat.pi / 2
+        card_placer_tail2.alpha = 0
         addChild(card_placer_tail2)
+    
+        card_placer_tail2.run(fadeIn)
+        card_placer_tail2.addGlowInit()
   
         
         
         let card_placer_tail1 = SKSpriteNode(imageNamed: "Lcard_placer_tail")
-        card_placer_tail1.position = CGPoint(x:40, y: 180)
-        card_placer_tail1.size = CGSize(width: 150, height: 65)
+        card_placer_tail1.position = CGPoint(x:45, y: 180)
+       // card_placer_tail1.size = CGSize(width: 150, height: 65)
         card_placer_tail1.zRotation = CGFloat.pi / 2
+        card_placer_tail1.alpha = 0
         addChild(card_placer_tail1)
+        
+        card_placer_tail1.run(fadeIn)
+        card_placer_tail1.addGlowInit()
      
         
         //table------------------------------
@@ -91,7 +97,6 @@ class GameScene: SKScene {
         let cardDrawn1 = Card(cardType: .random, isPlayer: true)
         cardDrawn1.position = CGPoint(x: 50, y: 400)
         cardPosition.append(cardDrawn1.position)
-        cardDrawn1.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn1)
         dealtCards.append(cardDrawn1)
         cardDrawn1.position = deck.position
@@ -100,7 +105,6 @@ class GameScene: SKScene {
         let cardDrawn2 = Card(cardType: .random, isPlayer: true)
         cardDrawn2.position = CGPoint(x: 110, y: 400)
         cardPosition.append(cardDrawn2.position)
-        cardDrawn2.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn2)
         dealtCards.append(cardDrawn2)
         cardDrawn2.position = deck.position
@@ -110,7 +114,6 @@ class GameScene: SKScene {
         let cardDrawn3 = Card(cardType: .random, isPlayer: true)
         cardDrawn3.position = CGPoint(x: 170, y: 400)
         cardPosition.append(cardDrawn3.position)
-        cardDrawn3.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn3)
         dealtCards.append(cardDrawn3)
         cardDrawn3.position = deck.position
@@ -119,7 +122,6 @@ class GameScene: SKScene {
         let cardDrawn4 = Card(cardType: .random, isPlayer: true)
         cardDrawn4.position = CGPoint(x: 230, y: 400)
         cardPosition.append(cardDrawn4.position)
-        cardDrawn4.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn4)
         dealtCards.append(cardDrawn4)
         cardDrawn4.position = deck.position
@@ -128,7 +130,6 @@ class GameScene: SKScene {
         let cardDrawn5 = Card(cardType: .random, isPlayer: true)
         cardDrawn5.position = CGPoint(x: 290, y: 400)
         cardPosition.append(cardDrawn5.position)
-        cardDrawn5.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn5)
         dealtCards.append(cardDrawn5)
         cardDrawn5.position = deck.position
@@ -139,7 +140,6 @@ class GameScene: SKScene {
         let cardDrawn6 = Card(cardType: .random, isPlayer: true)
         cardDrawn6.position = CGPoint(x: 50, y: 320)
         cardPosition.append(cardDrawn6.position)
-        cardDrawn6.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn6)
         dealtCards.append(cardDrawn6)
         cardDrawn6.position = deck.position
@@ -147,7 +147,6 @@ class GameScene: SKScene {
         let cardDrawn7 = Card(cardType: .random, isPlayer: true)
         cardDrawn7.position = CGPoint(x: 110, y: 320)
         cardPosition.append(cardDrawn7.position)
-        cardDrawn7.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn7)
         dealtCards.append(cardDrawn7)
         cardDrawn7.position = deck.position
@@ -155,7 +154,6 @@ class GameScene: SKScene {
         let cardDrawn8 = Card(cardType: .random, isPlayer: true)
         cardDrawn8.position = CGPoint(x: 170, y: 320)
         cardPosition.append(cardDrawn8.position)
-        cardDrawn8.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn8)
         dealtCards.append(cardDrawn8)
         cardDrawn8.position = deck.position
@@ -164,7 +162,6 @@ class GameScene: SKScene {
         let cardDrawn9 = Card(cardType: .random, isPlayer: true)
         cardDrawn9.position = CGPoint(x: 230, y: 320)
         cardPosition.append(cardDrawn9.position)
-        cardDrawn9.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn9)
         dealtCards.append(cardDrawn9)
         cardDrawn9.position = deck.position
@@ -173,7 +170,6 @@ class GameScene: SKScene {
         let cardDrawn10 = Card(cardType: .random, isPlayer: true)
         cardDrawn10.position = CGPoint(x: 290, y: 320)
         cardPosition.append(cardDrawn10.position)
-        cardDrawn10.size = CGSize(width: 50, height: 70)
         addChild(cardDrawn10)
         dealtCards.append(cardDrawn10)
         cardDrawn10.position = deck.position
@@ -183,81 +179,65 @@ class GameScene: SKScene {
         
         let opponentCard1 = Card(cardType: .random, isPlayer: false)
         opponentCard1.position = cardInitPosition
-        opponentCard1.size = CGSize(width: 50, height: 70)
         addChild(opponentCard1)
         player2Table.append(opponentCard1)
         
         let opponentCard2 = Card(cardType: .random, isPlayer: false)
         opponentCard2.position = cardInitPosition
-        opponentCard2.size = CGSize(width: 50, height: 70)
         addChild(opponentCard2)
         player2Table.append(opponentCard2)
         
         let opponentCard3 = Card(cardType: .random, isPlayer: false)
         opponentCard3.position = cardInitPosition
-        opponentCard3.size = CGSize(width: 50, height: 70)
         addChild(opponentCard3)
         player2Table.append(opponentCard3)
         
         let opponentCard4 = Card(cardType: .random, isPlayer: false)
         opponentCard4.position = cardInitPosition
-        opponentCard4.size = CGSize(width: 50, height: 70)
         addChild(opponentCard4)
         player2Table.append(opponentCard4)
         
         let opponentCard5 = Card(cardType: .random, isPlayer: false)
         opponentCard5.position = cardInitPosition
-        opponentCard5.size = CGSize(width: 50, height: 70)
         addChild(opponentCard5)
         player2Table.append(opponentCard5)
         
         let opponentCard6 = Card(cardType: .random, isPlayer: false)
         opponentCard6.position = cardInitPosition
-        opponentCard6.size = CGSize(width: 50, height: 70)
         addChild(opponentCard6)
         player2Table.append(opponentCard6)
         
         let opponentCard7 = Card(cardType: .random, isPlayer: false)
         opponentCard7.position = cardInitPosition
-        opponentCard7.size = CGSize(width: 50, height: 70)
         addChild(opponentCard7)
         player2Table.append(opponentCard7)
         
         let opponentCard8 = Card(cardType: .random, isPlayer: false)
         opponentCard8.position = cardInitPosition
-        opponentCard8.size = CGSize(width: 50, height: 70)
         addChild(opponentCard8)
         player2Table.append(opponentCard8)
         
         let opponentCard9 = Card(cardType: .random, isPlayer: false)
         opponentCard9.position = cardInitPosition
-        opponentCard9.size = CGSize(width: 50, height: 70)
         addChild(opponentCard9)
         player2Table.append(opponentCard9)
         
         let opponentCard10 = Card(cardType: .random, isPlayer: false)
         opponentCard10.position = cardInitPosition
-        opponentCard10.size = CGSize(width: 50, height: 70)
         addChild(opponentCard10)
         player2Table.append(opponentCard10)
         /////////////////////////////////////////////
         
-        
-        let victoryPlate = gameOverMenu(gameOverMenu: victoryScreen, mainMenu: mainMenu, playAgain: playAgain, mainMenuPressed: mainMenuPressed, playAgainPressed: playAgainPressed, currentScene: self)
-        victoryPlate.position = CGPoint(x: 200, y: 300)
-        victoryPlate.size = CGSize(width: 300, height: 200)
-        victoryPlate.isUserInteractionEnabled = true
-        addChild(victoryPlate)
-        victoryPlate.zPosition = 11
-        
         let countDown = Countdown(countDown3: countDown3 , countDown2: countDown2, countDown1: countDown1, countDownGo: countDownGo)
+        let counDownSlidePosition = CGPoint(x: 220, y: 360)
         let counDownStartPosition = CGPoint(x: 200, y: 360)
         countDown.position = CGPoint(x: -100 , y: 360)
         countDown.size = CGSize(width: 200, height: 200)
-         addChild(countDown)
+        addChild(countDown)
         
        countDown.zPosition = 11
-        countDown.startCountDown(startlocation: counDownStartPosition )
+        countDown.startCountDown(slideLocation: counDownSlidePosition, startLocation: counDownStartPosition)
+         
       
         
  
@@ -407,7 +387,7 @@ class GameScene: SKScene {
             let location = touch.location(in: self)
             
             if let deck = atPoint(location) as? Deck {
-                if touch.tapCount == 1 {
+                if touch.tapCount == 1 && gameOver == false{
                    
                     
                     let redraw = SKAction.run({
@@ -504,8 +484,15 @@ class GameScene: SKScene {
                                 let rotateAction = SKAction.rotate(toAngle: handPosition.cardRotation[playerHand.count], duration: 0.2)
                                 let delayAction = SKAction.wait(forDuration: 0.1)
                                 let moveToward = SKAction.move(to: handPosition.cardPostion[playerHand.count], duration: 0.2 )
-                               
-                                card.run(SKAction.sequence([rotateAction,delayAction, moveToward]), completion: {() -> Void in card.isUserInteractionEnabled = false})
+                                let bloomFlash = SKAction.run({
+                                    card.addBloomtoHand()
+                                })
+                                let glowFlash = SKAction.run({
+                                    card.addGlowtoHand()
+                                })
+                                let highlightFlash = SKAction.group([bloomFlash,glowFlash])
+                                
+                                card.run(SKAction.sequence([rotateAction,delayAction, moveToward,highlightFlash]), completion: {() -> Void in card.isUserInteractionEnabled = false})
                                 card.Unhighlight()
                                 card.redrawing = false
                                 card.selected = false
@@ -526,11 +513,11 @@ class GameScene: SKScene {
     }
     
     
-
+    
     
     func revealTable(card: Card, cardPosition: CGPoint, counter: Double) -> Card {
-         firstTable = card
-         let firstCard = 0.0
+        firstTable = card
+        let firstCard = 0.0
         if firstTable.redrawing == true && firstTable.faceDown {
             let delayAction = SKAction.wait(forDuration: 0.5 * counter)
             let firstMove = SKAction.wait(forDuration: 0.5 * firstCard)
@@ -586,15 +573,33 @@ class GameScene: SKScene {
         
         if isPlayer == true{
             self.removeAllActions()
-            let transition = SKTransition.fade(withDuration: 1.0)
-            let gameOverScene = GameOverScene(size: self.size, won: true)
-            self.view?.presentScene(gameOverScene, transition: transition)
+            self.preventTouchActions()
+            self.gameOver = true
+            
+            let victoryPlate = gameOverMenu(gameOverMenu: victoryScreen, mainMenu: mainMenu, playAgain: playAgain, mainMenuPressed: mainMenuPressed, playAgainPressed: playAgainPressed, currentScene: self)
+            victoryPlate.position = CGPoint(x: -200, y: 360)
+            let victoryPlateSlidePosition = CGPoint(x: 220, y: 360)
+            let victoryPlateStartPosition = CGPoint(x: 200, y: 360)
+            victoryPlate.size = CGSize(width: 300, height: 200)
+            victoryPlate.isUserInteractionEnabled = true
+            addChild(victoryPlate)
+            victoryPlate.zPosition = 11
+              victoryPlate.movetoScreen(slidePosition: victoryPlateSlidePosition, startPosition: victoryPlateStartPosition)
         }
         else {
             self.removeAllActions()
-            let transition = SKTransition.fade(withDuration: 1.0)
-            let gameOverScene = GameOverScene(size: self.size, won: false)
-            self.view?.presentScene(gameOverScene, transition: transition)
+            self.preventTouchActions()
+            self.gameOver = true
+            
+            let defeatPlate = gameOverMenu(gameOverMenu: defeatScreen, mainMenu: mainMenu, playAgain: playAgain, mainMenuPressed: mainMenuPressed, playAgainPressed: playAgainPressed, currentScene: self)
+            defeatPlate.position = CGPoint(x: -200, y: 360)
+            let defeatPlateSlidePosition = CGPoint(x: 220, y: 360)
+            let defeatPlateStartPosition = CGPoint(x: 200, y: 360)
+            defeatPlate.size = CGSize(width: 300, height: 200)
+            defeatPlate.isUserInteractionEnabled = true
+            addChild(defeatPlate)
+            defeatPlate.zPosition = 11
+            defeatPlate.movetoScreen(slidePosition: defeatPlateSlidePosition, startPosition: defeatPlateStartPosition)
         }
     }
 //_______________________________________________//
@@ -605,6 +610,12 @@ class GameScene: SKScene {
         if card.faceDown == true {
             card.flip(counter: counter)
         }
+    }
+    
+    func preventTouchActions () {
+            for card in self.dealtCards {
+                card.isUserInteractionEnabled = true
+            }
     }
     
     func player2Logic (regularTurn: SKAction, lastTurn: SKAction, playerhand: [Card]) {
@@ -637,6 +648,29 @@ class GameScene: SKScene {
         print(points)
         return points
     }*/
+}
+
+extension SKSpriteNode {
+    
+    func addGlowInit(radius: Float = 5){
+        let effectNode = SKEffectNode()
+        effectNode.shouldRasterize = true
+        
+        addChild(effectNode)
+        effectNode.addChild(SKSpriteNode(texture: texture))
+        effectNode.filter = CIFilter(name: "CIGaussianBlur", withInputParameters: ["inputRadius": radius])
+        //effectNode.zPosition = -1
+        //effectNode.size = CGSize(width: 150, height: 65.0)
+        let fadeIn = SKAction.fadeIn(withDuration: 1.0)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+        let slowGlow = SKAction.sequence([fadeIn,fadeOut])
+        effectNode.run(slowGlow)
+    }
+    
+    
+    
+
+    
 }
 
 

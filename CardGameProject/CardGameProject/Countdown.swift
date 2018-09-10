@@ -31,20 +31,44 @@ class Countdown : SKSpriteNode{
         super.init(texture: countDown3, color: .clear, size: countDown3.size())
     }
     
-    func startCountDown (startlocation: CGPoint) {
-        let pause = SKAction.wait(forDuration: 0.3)
-        let moveTo = SKAction.move(to: startlocation, duration: 0.3)
+    func startCountDown (slideLocation: CGPoint, startLocation: CGPoint) {
+        let moveTo = SKAction.move(to: slideLocation, duration: 0.3)
+        let moveAdjust = SKAction.move(to: startLocation, duration: 0.2)
         let second = SKAction.wait(forDuration: 1)
+        let halfsecond = SKAction.wait(forDuration: 0.5)
+        let glowfade = SKAction.run({
+            self.addGlowCountdown()
+        })
+        let glowburstHalfSecond = SKAction.group([halfsecond, glowfade])
+        let glowburstSecond = SKAction.group([second, glowfade])
         let set2 = SKAction.setTexture(countDown2)
         let set1 = SKAction.setTexture(countDown1)
         let setGo = SKAction.setTexture(countDownGo)
         let hide = SKAction.hide()
-        let initcountDown = SKAction.sequence([moveTo, second,set2,second,set1, second, setGo , pause, hide])
+        let initcountDown = SKAction.sequence([moveTo, moveAdjust, halfsecond ,set2,glowburstSecond,set1, glowburstSecond, setGo ,glowburstHalfSecond, hide])
         self.run(initcountDown)
     }
-}
 
     
+
+}
+
+extension SKSpriteNode {
+    
+    func addGlowCountdown(radius: Float = 10){
+    let effectNode = SKEffectNode()
+    effectNode.shouldRasterize = true
+    
+    addChild(effectNode)
+    effectNode.addChild(SKSpriteNode(texture: texture))
+    effectNode.filter = CIFilter(name: "CIGaussianBlur", withInputParameters: ["inputRadius": radius])
+    effectNode.zPosition = -1
+    let fade = SKAction.fadeOut(withDuration: 0.6)
+    effectNode.run(fade)
+    }
+
+
+}
     
     
 
