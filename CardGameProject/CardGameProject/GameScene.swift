@@ -62,34 +62,127 @@ class GameScene: SKScene {
         //deck------------------------------
         let deck = Deck(Decktexture: deckTexture)
         deck.position = CGPoint(x: 360, y: 360)
+        deck.zPosition = 11
         addChild(deck)
         
         //hand------------------------------
-     
-      let fadeIn = SKAction.fadeIn(withDuration: 1.0)
-     
+        
+        
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 1.0)
+        let moveOutofFrame = SKAction.move(to:(CGPoint(x: -200 ,y: 0)), duration: 3.0)
+        let moveOutofFrame_placer_tail2 = SKAction.move(to:(CGPoint(x: 200 ,y: 0)), duration: 3.0)
+
         
         let card_placer_tail2 = SKSpriteNode(imageNamed: "Rcard_placer_tail")
-        card_placer_tail2.position = CGPoint(x:360, y: 180)
+        card_placer_tail2.position = CGPoint(x:375, y:600)
         card_placer_tail2.zRotation = 3 * CGFloat.pi / 2
-        card_placer_tail2.alpha = 0
         addChild(card_placer_tail2)
-    
+        
         card_placer_tail2.run(fadeIn)
         card_placer_tail2.addGlowInit()
-  
+        
+        let activateSlide_placer_tail2 = SKCropNode()
+        activateSlide_placer_tail2.position = CGPoint(x:375, y:600)
+        activateSlide_placer_tail2.zRotation = 3 * CGFloat.pi / 2
+        activateSlide_placer_tail2.maskNode = SKSpriteNode(imageNamed: "Rcard_placer_tail")
+        activateSlide_placer_tail2.zPosition = 11
+        let uncoverNode_placer_tail2 = SKSpriteNode(imageNamed: "bg_blank")
+        uncoverNode_placer_tail2.size = CGSize(width: 200, height: 200)
+        uncoverNode_placer_tail2.position = CGPoint(x:0 ,y: 0)
+        uncoverNode_placer_tail2.zPosition = 12
+        activateSlide_placer_tail2.addChild(uncoverNode_placer_tail2)
+        addChild(activateSlide_placer_tail2)
+        
+        uncoverNode_placer_tail2.run(moveOutofFrame_placer_tail2,  completion: {() -> Void in activateSlide_placer_tail2.removeAllChildren()})
+ 
         
         
         let card_placer_tail1 = SKSpriteNode(imageNamed: "Lcard_placer_tail")
-        card_placer_tail1.position = CGPoint(x:45, y: 180)
-       // card_placer_tail1.size = CGSize(width: 150, height: 65)
+        card_placer_tail1.position = CGPoint(x:45, y: 600)
         card_placer_tail1.zRotation = CGFloat.pi / 2
-        card_placer_tail1.alpha = 0
         addChild(card_placer_tail1)
         
         card_placer_tail1.run(fadeIn)
         card_placer_tail1.addGlowInit()
-     
+        
+        let activateSlide_placer_tail1 = SKCropNode()
+        activateSlide_placer_tail1.position = CGPoint(x:45, y: 600)
+        activateSlide_placer_tail1.zRotation = CGFloat.pi / 2
+        activateSlide_placer_tail1.maskNode = SKSpriteNode(imageNamed: "Lcard_placer_tail")
+        activateSlide_placer_tail1.zPosition = 11
+        let uncoverNode_placer_tail1 = SKSpriteNode(imageNamed: "bg_blank")
+        uncoverNode_placer_tail1.size = CGSize(width: 200, height: 200)
+        uncoverNode_placer_tail1.position = CGPoint(x:0 ,y: 0)
+        uncoverNode_placer_tail1.zPosition = 12
+        activateSlide_placer_tail1.addChild(uncoverNode_placer_tail1)
+        addChild(activateSlide_placer_tail1)
+        
+        uncoverNode_placer_tail1.run(moveOutofFrame,  completion: {() -> Void in activateSlide_placer_tail1.removeAllChildren()})
+ 
+ 
+        
+        let circuitBorder1 = SKSpriteNode(imageNamed: "circuitBorder_left")
+        circuitBorder1.position = CGPoint(x:135, y: 530)
+        circuitBorder1.zRotation = 3 * CGFloat.pi / 4
+        circuitBorder1.zPosition = 1
+        addChild(circuitBorder1)
+        
+        circuitBorder1.run(fadeIn)
+        circuitBorder1.addGlowInit()
+        
+        
+        let activateSlide_Border1 = SKCropNode()
+        activateSlide_Border1.position = CGPoint(x:135, y: 530)
+        activateSlide_Border1.zRotation = 3 * CGFloat.pi / 4
+        activateSlide_Border1.maskNode = SKSpriteNode(imageNamed: "circuitBorder_left")
+        activateSlide_Border1.zPosition = 11
+        let uncoverNode_Border1 = SKSpriteNode(imageNamed: "bg_blank")
+        uncoverNode_Border1.size = CGSize(width: 200, height: 200)
+        uncoverNode_Border1.position = CGPoint(x:0 ,y: 0)
+        uncoverNode_Border1.zPosition = 12
+        activateSlide_Border1.addChild(uncoverNode_Border1)
+        addChild(activateSlide_Border1)
+        
+        uncoverNode_Border1.run(moveOutofFrame, completion: {() -> Void in activateSlide_Border1.removeAllChildren()})
+        
+        let circuitBorder2 = SKSpriteNode(imageNamed: "circuitBorder_right")
+        circuitBorder2.position = CGPoint(x:290, y: 530)
+        circuitBorder2.zRotation = CGFloat.pi / 4
+        addChild(circuitBorder2)
+        
+        circuitBorder2.run(fadeIn)
+        circuitBorder2.addGlowInit()
+        
+        
+        let activateSlide_Border2 = SKCropNode()
+        activateSlide_Border2.position = CGPoint(x:290, y: 530)
+        activateSlide_Border2.zRotation = CGFloat.pi / 4
+        activateSlide_Border2.maskNode = SKSpriteNode(imageNamed: "circuitBorder_right")
+        let uncoverNode_Border2 = SKSpriteNode(imageNamed: "bg_blank")
+        uncoverNode_Border2.size = CGSize(width: 200, height: 200)
+        uncoverNode_Border2.position = CGPoint(x:0 ,y: 0)
+        activateSlide_Border2.addChild(uncoverNode_Border2)
+        addChild(activateSlide_Border2)
+        
+        uncoverNode_Border2.run(moveOutofFrame, completion: {() -> Void in activateSlide_Border2.removeAllChildren()})
+        
+        let circuitCorner_left = SKSpriteNode(imageNamed: "circuitcorner_left")
+        circuitCorner_left.position = CGPoint(x:80, y: 100)
+        circuitCorner_left.alpha = 0
+        addChild(circuitCorner_left)
+        
+        circuitCorner_left.run(fadeIn)
+        circuitCorner_left.addGlowInit()
+        
+        let circuitCorner_right = SKSpriteNode(imageNamed: "circuitcorner_right")
+        circuitCorner_right.position = CGPoint(x:330, y: 100)
+        circuitCorner_right.alpha = 0
+        addChild(circuitCorner_right)
+        
+        circuitCorner_right.run(fadeIn)
+        circuitCorner_right.addGlowInit()
+        
         
         //table------------------------------
    
@@ -174,8 +267,7 @@ class GameScene: SKScene {
         dealtCards.append(cardDrawn10)
         cardDrawn10.position = deck.position
         
-       ///////////////////////////////////////////////////////
-        
+        ///////////////////////////////////////////////////////        /////////////////////////////////////////////
         
         let opponentCard1 = Card(cardType: .random, isPlayer: false)
         opponentCard1.position = cardInitPosition
@@ -226,7 +318,7 @@ class GameScene: SKScene {
         opponentCard10.position = cardInitPosition
         addChild(opponentCard10)
         player2Table.append(opponentCard10)
-        /////////////////////////////////////////////
+        /////////////////////////////////////////////        /////////////////////////////////////////////
         
         let countDown = Countdown(countDown3: countDown3 , countDown2: countDown2, countDown1: countDown1, countDownGo: countDownGo)
         let counDownSlidePosition = CGPoint(x: 220, y: 360)
@@ -242,7 +334,7 @@ class GameScene: SKScene {
         
  
         counter = resetCounter(counter: counter)
-        /////////////////////////////////////////////
+        /////////////////////////////////////////////        /////////////////////////////////////////////
         
     }
     
@@ -661,15 +753,12 @@ extension SKSpriteNode {
         effectNode.filter = CIFilter(name: "CIGaussianBlur", withInputParameters: ["inputRadius": radius])
         //effectNode.zPosition = -1
         //effectNode.size = CGSize(width: 150, height: 65.0)
-        let fadeIn = SKAction.fadeIn(withDuration: 1.0)
+        let delay = SKAction.wait(forDuration: 0.25)
+        let fadeIn = SKAction.fadeIn(withDuration: 3.0)
         let fadeOut = SKAction.fadeOut(withDuration: 0.5)
-        let slowGlow = SKAction.sequence([fadeIn,fadeOut])
+        let slowGlow = SKAction.sequence([delay,fadeIn,fadeOut])
         effectNode.run(slowGlow)
     }
-    
-    
-    
-
     
 }
 

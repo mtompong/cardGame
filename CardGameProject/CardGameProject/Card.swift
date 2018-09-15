@@ -262,7 +262,7 @@ extension SKSpriteNode {
         effectNode.addChild(SKSpriteNode(texture: texture))
         effectNode.filter = CIFilter(name: "CIBloom", withInputParameters: ["inputRadius": radius, "inputIntensity": intensity])
         effectNode.zPosition = 11
-        let fadeOut = SKAction.fadeOut(withDuration: 0.3)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.35)
         effectNode.run(fadeOut)
     }
     
@@ -274,7 +274,7 @@ extension SKSpriteNode {
         effectNode.addChild(SKSpriteNode(texture: texture))
         effectNode.filter = CIFilter(name: "CIGaussianBlur", withInputParameters: ["inputRadius": radius])
         effectNode.zPosition = -1
-        let fade = SKAction.fadeOut(withDuration: 0.3)
+        let fade = SKAction.fadeOut(withDuration: 0.35)
         effectNode.run(fade)
     }
     
