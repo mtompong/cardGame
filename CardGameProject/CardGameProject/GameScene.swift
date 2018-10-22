@@ -25,14 +25,28 @@ class GameScene: SKScene {
     let handPosition = cardHand(player: .player1)
     let player2Position = cardHand(player: .player2)
     let player2Texture = SKTexture(imageNamed: "player_2")
-    let cardInitPosition = CGPoint(x: 400, y: 670)
-    let cardMovePosition = CGPoint(x: 350, y: 650)
+    let cardInitPosition = CGPoint(x: 360, y: 450)
+    let cardMovePosition = CGPoint(x: 360, y: 450)
     var player2Hand: [Card] = []
     var player2Table: [Card] = []
+    
+    var highlightCornerNode :HilightedHexagon?
+    
+    
     let countDown3 = SKTexture(imageNamed: "countDown_3")
     let countDown2 = SKTexture(imageNamed: "countDown_2")
     let countDown1 = SKTexture(imageNamed: "countDown_1")
     let countDownGo = SKTexture(imageNamed: "countDown_Go")
+    let Ring_Inner1 = SKTexture(imageNamed: "Ring_Inner1")
+    let Ring_Inner2 = SKTexture(imageNamed: "Ring_Inner2")
+    let Ring_Outer1 = SKTexture(imageNamed: "Ring_Outer1")
+    let Ring_Outer2 = SKTexture(imageNamed: "Ring_Outer2")
+    
+    let electricFlash1 = SKTexture(imageNamed: "electric_Flash1")
+    let electricFlash2 = SKTexture(imageNamed: "electric_Flash2")
+    let electricFlash3 = SKTexture(imageNamed: "electric_Flash3")
+    let electricFlash4 = SKTexture(imageNamed: "electric_Flash4")
+    
     let victoryScreen = SKTexture(imageNamed: "victoryScreen")
     let defeatScreen = SKTexture(imageNamed: "defeatScreen")
     let mainMenu = SKTexture(imageNamed: "mainMenu")
@@ -45,6 +59,7 @@ class GameScene: SKScene {
     
     
     override func didMove(to view: SKView) {
+        
         let bg = SKSpriteNode(imageNamed: "bg_blank")
         bg.anchorPoint = CGPoint.zero
         bg.position = CGPoint.zero
@@ -54,10 +69,11 @@ class GameScene: SKScene {
         
 
         let player2Node = SKSpriteNode(imageNamed: "player_2")
-        player2Node.position = CGPoint(x: 200, y: 720)
-        player2Node.size = CGSize(width: 100, height: 30)
+        player2Node.position = CGPoint(x: 200, y: 680)
+        player2Node.size = CGSize(width: 40, height: 40)
+        player2Node.zPosition = 11
         addChild(player2Node)
- 
+      
         
         //deck------------------------------
         let deck = Deck(Decktexture: deckTexture)
@@ -70,27 +86,29 @@ class GameScene: SKScene {
         
         
         let fadeIn = SKAction.fadeIn(withDuration: 1.0)
-        let moveOutofFrame = SKAction.move(to:(CGPoint(x: -200 ,y: 0)), duration: 3.0)
-        let moveOutofFrame_placer_tail2 = SKAction.move(to:(CGPoint(x: 200 ,y: 0)), duration: 3.0)
+        let moveOutofFrame = SKAction.move(to:(CGPoint(x: 200 ,y: 0)), duration: 3.0)
+        let moveOutofFrame_placer_tail2 = SKAction.move(to:(CGPoint(x: -200 ,y: 0)), duration: 3.0)
 
         
         let card_placer_tail2 = SKSpriteNode(imageNamed: "Rcard_placer_tail")
-        card_placer_tail2.position = CGPoint(x:375, y:600)
-        card_placer_tail2.zRotation = 3 * CGFloat.pi / 2
+        card_placer_tail2.position = CGPoint(x:337, y:245)
+        //card_placer_tail2.zRotation = 3 * CGFloat.pi / 2
         addChild(card_placer_tail2)
+        let thisfadeIn = SKAction.run({
+            card_placer_tail2.run(fadeIn)
+        })
+        let addGlow = SKAction.run({
+            card_placer_tail2.addGlowInit()
+        })
         
-        card_placer_tail2.run(fadeIn)
-        card_placer_tail2.addGlowInit()
-        
+        card_placer_tail2.run(SKAction.group([thisfadeIn,addGlow]))
         let activateSlide_placer_tail2 = SKCropNode()
-        activateSlide_placer_tail2.position = CGPoint(x:375, y:600)
-        activateSlide_placer_tail2.zRotation = 3 * CGFloat.pi / 2
+        activateSlide_placer_tail2.position = CGPoint(x:337, y:245)
+        //activateSlide_placer_tail2.zRotation = 3 * CGFloat.pi / 2
         activateSlide_placer_tail2.maskNode = SKSpriteNode(imageNamed: "Rcard_placer_tail")
-        activateSlide_placer_tail2.zPosition = 11
         let uncoverNode_placer_tail2 = SKSpriteNode(imageNamed: "bg_blank")
         uncoverNode_placer_tail2.size = CGSize(width: 200, height: 200)
         uncoverNode_placer_tail2.position = CGPoint(x:0 ,y: 0)
-        uncoverNode_placer_tail2.zPosition = 12
         activateSlide_placer_tail2.addChild(uncoverNode_placer_tail2)
         addChild(activateSlide_placer_tail2)
         
@@ -99,22 +117,20 @@ class GameScene: SKScene {
         
         
         let card_placer_tail1 = SKSpriteNode(imageNamed: "Lcard_placer_tail")
-        card_placer_tail1.position = CGPoint(x:45, y: 600)
-        card_placer_tail1.zRotation = CGFloat.pi / 2
+        card_placer_tail1.position = CGPoint(x:75, y: 245)
+        //card_placer_tail1.zRotation = CGFloat.pi / 2
         addChild(card_placer_tail1)
         
         card_placer_tail1.run(fadeIn)
         card_placer_tail1.addGlowInit()
         
         let activateSlide_placer_tail1 = SKCropNode()
-        activateSlide_placer_tail1.position = CGPoint(x:45, y: 600)
-        activateSlide_placer_tail1.zRotation = CGFloat.pi / 2
+        activateSlide_placer_tail1.position = CGPoint(x:75, y: 245)
+        //activateSlide_placer_tail1.zRotation = CGFloat.pi / 2
         activateSlide_placer_tail1.maskNode = SKSpriteNode(imageNamed: "Lcard_placer_tail")
-        activateSlide_placer_tail1.zPosition = 11
         let uncoverNode_placer_tail1 = SKSpriteNode(imageNamed: "bg_blank")
         uncoverNode_placer_tail1.size = CGSize(width: 200, height: 200)
         uncoverNode_placer_tail1.position = CGPoint(x:0 ,y: 0)
-        uncoverNode_placer_tail1.zPosition = 12
         activateSlide_placer_tail1.addChild(uncoverNode_placer_tail1)
         addChild(activateSlide_placer_tail1)
         
@@ -123,9 +139,8 @@ class GameScene: SKScene {
  
         
         let circuitBorder1 = SKSpriteNode(imageNamed: "circuitBorder_left")
-        circuitBorder1.position = CGPoint(x:135, y: 530)
+        circuitBorder1.position = CGPoint(x:55, y: 50)
         circuitBorder1.zRotation = 3 * CGFloat.pi / 4
-        circuitBorder1.zPosition = 1
         addChild(circuitBorder1)
         
         circuitBorder1.run(fadeIn)
@@ -133,21 +148,19 @@ class GameScene: SKScene {
         
         
         let activateSlide_Border1 = SKCropNode()
-        activateSlide_Border1.position = CGPoint(x:135, y: 530)
+        activateSlide_Border1.position = CGPoint(x:55, y: 50)
         activateSlide_Border1.zRotation = 3 * CGFloat.pi / 4
         activateSlide_Border1.maskNode = SKSpriteNode(imageNamed: "circuitBorder_left")
-        activateSlide_Border1.zPosition = 11
         let uncoverNode_Border1 = SKSpriteNode(imageNamed: "bg_blank")
         uncoverNode_Border1.size = CGSize(width: 200, height: 200)
         uncoverNode_Border1.position = CGPoint(x:0 ,y: 0)
-        uncoverNode_Border1.zPosition = 12
         activateSlide_Border1.addChild(uncoverNode_Border1)
         addChild(activateSlide_Border1)
         
         uncoverNode_Border1.run(moveOutofFrame, completion: {() -> Void in activateSlide_Border1.removeAllChildren()})
         
         let circuitBorder2 = SKSpriteNode(imageNamed: "circuitBorder_right")
-        circuitBorder2.position = CGPoint(x:290, y: 530)
+        circuitBorder2.position = CGPoint(x:355, y: 55)
         circuitBorder2.zRotation = CGFloat.pi / 4
         addChild(circuitBorder2)
         
@@ -156,7 +169,7 @@ class GameScene: SKScene {
         
         
         let activateSlide_Border2 = SKCropNode()
-        activateSlide_Border2.position = CGPoint(x:290, y: 530)
+        activateSlide_Border2.position = CGPoint(x:355, y: 55)
         activateSlide_Border2.zRotation = CGFloat.pi / 4
         activateSlide_Border2.maskNode = SKSpriteNode(imageNamed: "circuitBorder_right")
         let uncoverNode_Border2 = SKSpriteNode(imageNamed: "bg_blank")
@@ -166,17 +179,37 @@ class GameScene: SKScene {
         addChild(activateSlide_Border2)
         
         uncoverNode_Border2.run(moveOutofFrame, completion: {() -> Void in activateSlide_Border2.removeAllChildren()})
+       
+       
         
+        highlightCornerNode = HilightedHexagon()
+        highlightCornerNode!.position = CGPoint(x: 200, y: 350)
+        highlightCornerNode!.alpha = 0.75
+        addChild(highlightCornerNode!)
+        highlightCornerNode?.run({
+            SKAction.group([
+                SKAction.run {
+                    self.highlightCornerNode!.activateHighlightTop()
+                },
+                SKAction.run {
+                    self.highlightCornerNode!.activateHighlightBottom()
+                }
+                ])
+            }())
+
+        
+       
         let circuitCorner_left = SKSpriteNode(imageNamed: "circuitcorner_left")
-        circuitCorner_left.position = CGPoint(x:80, y: 100)
+        circuitCorner_left.position = CGPoint(x:80, y: 535)
         circuitCorner_left.alpha = 0
         addChild(circuitCorner_left)
         
         circuitCorner_left.run(fadeIn)
         circuitCorner_left.addGlowInit()
         
+        
         let circuitCorner_right = SKSpriteNode(imageNamed: "circuitcorner_right")
-        circuitCorner_right.position = CGPoint(x:330, y: 100)
+        circuitCorner_right.position = CGPoint(x:330, y: 535)
         circuitCorner_right.alpha = 0
         addChild(circuitCorner_right)
         
@@ -189,6 +222,7 @@ class GameScene: SKScene {
         
         let cardDrawn1 = Card(cardType: .random, isPlayer: true)
         cardDrawn1.position = CGPoint(x: 50, y: 400)
+        cardDrawn1.zPosition = 0.3
         cardPosition.append(cardDrawn1.position)
         addChild(cardDrawn1)
         dealtCards.append(cardDrawn1)
@@ -197,6 +231,7 @@ class GameScene: SKScene {
         
         let cardDrawn2 = Card(cardType: .random, isPlayer: true)
         cardDrawn2.position = CGPoint(x: 110, y: 400)
+        cardDrawn2.zPosition = 0.3
         cardPosition.append(cardDrawn2.position)
         addChild(cardDrawn2)
         dealtCards.append(cardDrawn2)
@@ -207,6 +242,7 @@ class GameScene: SKScene {
         let cardDrawn3 = Card(cardType: .random, isPlayer: true)
         cardDrawn3.position = CGPoint(x: 170, y: 400)
         cardPosition.append(cardDrawn3.position)
+        cardDrawn3.zPosition = 0.3
         addChild(cardDrawn3)
         dealtCards.append(cardDrawn3)
         cardDrawn3.position = deck.position
@@ -215,6 +251,7 @@ class GameScene: SKScene {
         let cardDrawn4 = Card(cardType: .random, isPlayer: true)
         cardDrawn4.position = CGPoint(x: 230, y: 400)
         cardPosition.append(cardDrawn4.position)
+        cardDrawn4.zPosition = 0.3
         addChild(cardDrawn4)
         dealtCards.append(cardDrawn4)
         cardDrawn4.position = deck.position
@@ -223,6 +260,7 @@ class GameScene: SKScene {
         let cardDrawn5 = Card(cardType: .random, isPlayer: true)
         cardDrawn5.position = CGPoint(x: 290, y: 400)
         cardPosition.append(cardDrawn5.position)
+        cardDrawn5.zPosition = 0.3
         addChild(cardDrawn5)
         dealtCards.append(cardDrawn5)
         cardDrawn5.position = deck.position
@@ -232,6 +270,7 @@ class GameScene: SKScene {
         
         let cardDrawn6 = Card(cardType: .random, isPlayer: true)
         cardDrawn6.position = CGPoint(x: 50, y: 320)
+        cardDrawn6.zPosition = 0.3
         cardPosition.append(cardDrawn6.position)
         addChild(cardDrawn6)
         dealtCards.append(cardDrawn6)
@@ -239,6 +278,7 @@ class GameScene: SKScene {
         
         let cardDrawn7 = Card(cardType: .random, isPlayer: true)
         cardDrawn7.position = CGPoint(x: 110, y: 320)
+        cardDrawn7.zPosition = 0.3
         cardPosition.append(cardDrawn7.position)
         addChild(cardDrawn7)
         dealtCards.append(cardDrawn7)
@@ -246,6 +286,7 @@ class GameScene: SKScene {
         
         let cardDrawn8 = Card(cardType: .random, isPlayer: true)
         cardDrawn8.position = CGPoint(x: 170, y: 320)
+        cardDrawn8.zPosition = 0.3
         cardPosition.append(cardDrawn8.position)
         addChild(cardDrawn8)
         dealtCards.append(cardDrawn8)
@@ -254,6 +295,7 @@ class GameScene: SKScene {
         
         let cardDrawn9 = Card(cardType: .random, isPlayer: true)
         cardDrawn9.position = CGPoint(x: 230, y: 320)
+        cardDrawn9.zPosition = 0.3
         cardPosition.append(cardDrawn9.position)
         addChild(cardDrawn9)
         dealtCards.append(cardDrawn9)
@@ -262,6 +304,7 @@ class GameScene: SKScene {
         
         let cardDrawn10 = Card(cardType: .random, isPlayer: true)
         cardDrawn10.position = CGPoint(x: 290, y: 320)
+        cardDrawn10.zPosition = 0.3
         cardPosition.append(cardDrawn10.position)
         addChild(cardDrawn10)
         dealtCards.append(cardDrawn10)
@@ -318,7 +361,7 @@ class GameScene: SKScene {
         opponentCard10.position = cardInitPosition
         addChild(opponentCard10)
         player2Table.append(opponentCard10)
-        /////////////////////////////////////////////        /////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         let countDown = Countdown(countDown3: countDown3 , countDown2: countDown2, countDown1: countDown1, countDownGo: countDownGo)
         let counDownSlidePosition = CGPoint(x: 220, y: 360)
@@ -334,7 +377,84 @@ class GameScene: SKScene {
         
  
         counter = resetCounter(counter: counter)
-        /////////////////////////////////////////////        /////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        let Loading_Circle = LoadingCircle(Ring_Inner1: Ring_Inner1, Ring_Inner2: Ring_Inner2, Ring_Outer1: Ring_Outer1, Ring_Outer2: Ring_Outer2)
+        Loading_Circle.position = CGPoint(x:200, y:680)
+        addChild(Loading_Circle)
+        let startRotatingCycle = SKAction.run ({
+            if (self.gameOver == false) {
+                Loading_Circle.startRotatingCycle()
+                Loading_Circle.Inner_Ring2.addGlowInit()
+                Loading_Circle.Outer_Ring1.addGlowInit()
+                Loading_Circle.Outer_Ring2.addGlowInit()
+            }
+            else {
+                Loading_Circle.removeAllActions()
+            }
+        })
+        
+        Loading_Circle.run(SKAction.sequence([(SKAction.wait(forDuration: 3)),startRotatingCycle]))
+        
+       
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        let data_Screen = dataScreen()
+        data_Screen.position = CGPoint(x:200,y:50)
+        //let initSize = CGSize(width: 133.33, height: 100)
+        data_Screen.setScale(0)
+        //data_Screen.size = CGSize(width: 133.33, height: 100)
+        addChild(data_Screen)
+        
+        data_Screen.expand()
+        
+          ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        let flashAura1 = electricFlash(electricFlash: electricFlash1)
+        flashAura1.position = CGPoint(x: 100, y: 55)
+        addChild(flashAura1)
+        flashAura1.isHidden = true
+        flashAura1.startElectricFlash(waitDuration: 2)
+        
+        let subflashAura1 = electricFlash(electricFlash: electricFlash3)
+        subflashAura1.position = CGPoint(x: 320, y: 120)
+        addChild(subflashAura1)
+        subflashAura1.isHidden = true
+        subflashAura1.startElectricFlash(waitDuration: 2)
+        
+        let flashAura2 = electricFlash(electricFlash: electricFlash2)
+        flashAura2.position = CGPoint(x: 300, y: 55)
+        addChild(flashAura2)
+        flashAura2.isHidden = true
+        flashAura2.startElectricFlash(waitDuration: 2.2)
+        
+        let subflashAura2 = electricFlash(electricFlash: electricFlash1)
+        subflashAura2.position = CGPoint(x: 70, y: 150)
+        addChild(subflashAura2)
+        subflashAura2.isHidden = true
+        subflashAura2.startElectricFlash(waitDuration: 2.2)
+        
+        let flashAura3 = electricFlash(electricFlash: electricFlash3)
+        flashAura3.position = CGPoint(x: 50, y: 245)
+        addChild(flashAura3)
+        flashAura3.isHidden = true
+        flashAura3.startElectricFlash(waitDuration: 2.4)
+        
+        let subflashAura3 = electricFlash(electricFlash: electricFlash4)
+        subflashAura3.position = CGPoint(x: 80, y: 55)
+        addChild(subflashAura3)
+        subflashAura3.isHidden = true
+        subflashAura3.startElectricFlash(waitDuration: 2.3)
+        
+        let flashAura4 = electricFlash(electricFlash: electricFlash4)
+        flashAura4.position = CGPoint(x: 350, y: 245)
+        addChild(flashAura4)
+        flashAura4.isHidden = true
+        flashAura4.startElectricFlash(waitDuration: 2.6)
+        
+       
+        
+        
+     
+        
         
     }
     
@@ -399,8 +519,8 @@ class GameScene: SKScene {
            
             self.opCounter = self.resetCounter(counter: self.opCounter)
             self.checkHand(playerHand: self.player2Hand, isPlayer: false)
-            let moveTo = CGPoint(x: 350, y: 600)
-            let moveHere = CGPoint(x: 350, y:560)
+            let moveTo = CGPoint(x: 360, y: 650)
+           
                     //add to hand
             for card in self.player2Table {
                 if card.cardType == player2handType && card.faceDown == false {
@@ -412,12 +532,16 @@ class GameScene: SKScene {
                     let rotateAction = SKAction.rotate(toAngle: self.player2Position.cardRotation[self.player2Hand.count], duration: 0.2)
                     let delayAction = SKAction.wait(forDuration: 1.0 * self.opCounter)
                     let move2Hand = SKAction.move(to: handLocation, duration: 0.2)
-                    
-                    let moveSequence = SKAction.sequence([delayAction,rotateAction,delayAction, move2Hand])
+                    let checkRadialHighlight = SKAction.run({
+                        self.checkforRadialHighlight(playerHand: self.player2Hand, isPlayer: false)
+                    })
+                    let moveSequence = SKAction.sequence([delayAction,rotateAction,delayAction, move2Hand, checkRadialHighlight ])
                     card.run(moveSequence)
+                    
                     self.checkHand(playerHand: self.player2Hand, isPlayer: false)
                     self.player2Table = self.player2Table.filter {$0 != card}
                     self.player2Hand.append(card)
+                    
                     
                 }
                 
@@ -429,23 +553,12 @@ class GameScene: SKScene {
                 self.firstTable2.isPaused = false
                 card.flip(counter: self.opCounter)
             }
-            
-            for card in self.player2Table {
-                 self.opCounter += 0.3
-                 let moveHere = SKAction.move(to:moveHere, duration: 0.2)
-                 let delayAction = SKAction.wait(forDuration: 0.5 * self.opCounter)
-                 let moveSequence = SKAction.sequence([delayAction, moveHere])
-                 card.run(moveSequence)
-                 card.flip(counter: self.opCounter)
-            }
-            
-      
         })
         
     
         
         let delaylastCard = SKAction.wait(forDuration: 2)
-        let delayAction = SKAction.wait(forDuration: 4)
+        let delayAction = SKAction.wait(forDuration: 2.5)
         let tabletoDeck = SKAction.wait(forDuration: 2.5)
        
         let player2FullTurn = SKAction.sequence([tabletoDeck,player2Action])
@@ -463,14 +576,14 @@ class GameScene: SKScene {
       
         
         
-        /////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       
   
         //self.pointsOnCircleFor(numberOfPoints: 20, centerX: 200, centerY: 680, radius: 80)
     }
     
     
-    //////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////// //////////////////////////////////////////////////////////////////
     
     override func touchesBegan(_ touches:
         Set<UITouch>, with event: UIEvent?) {
@@ -480,7 +593,7 @@ class GameScene: SKScene {
             
             if let deck = atPoint(location) as? Deck {
                 if touch.tapCount == 1 && gameOver == false{
-                   
+                    
                     
                     let redraw = SKAction.run({
                         //reshuffle table & move to deck
@@ -521,7 +634,7 @@ class GameScene: SKScene {
                     
                 }
                 counter = resetCounter(counter: counter)
-                
+                deck.addGlowtoHand()
             }
             
             
@@ -569,7 +682,7 @@ class GameScene: SKScene {
                         
                         for card in dealtCards{
                             if card.selected == true && card.redrawing == true {
-                                //isUserInteractionEnabled is backwards
+                                //isUserInteractionEnabled is backwards in this case
                                 card.isUserInteractionEnabled = true
                                 let Zposition = CGFloat(playerHand.count)
                                 card.zPosition = Zposition
@@ -584,7 +697,11 @@ class GameScene: SKScene {
                                 })
                                 let highlightFlash = SKAction.group([bloomFlash,glowFlash])
                                 
-                                card.run(SKAction.sequence([rotateAction,delayAction, moveToward,highlightFlash]), completion: {() -> Void in card.isUserInteractionEnabled = false})
+                                let checkRadialHighlight = SKAction.run({
+                                    self.checkforRadialHighlight(playerHand: self.playerHand, isPlayer: true)
+                                })
+                                
+                                card.run(SKAction.sequence([rotateAction,delayAction, moveToward,highlightFlash,checkRadialHighlight]), completion: {() -> Void in card.isUserInteractionEnabled = false})
                                 card.Unhighlight()
                                 card.redrawing = false
                                 card.selected = false
@@ -605,7 +722,18 @@ class GameScene: SKScene {
     }
     
     
-    
+    func checkforRadialHighlight (playerHand: [Card], isPlayer : Bool) {
+        if playerHand.count == 5 {
+            if isPlayer == true{
+                self.highlightCornerNode?.activateHighlightBottom()
+            }
+            else {
+                self.highlightCornerNode?.activateHighlightTop()
+            }
+        }
+        
+        
+    }
     
     func revealTable(card: Card, cardPosition: CGPoint, counter: Double) -> Card {
         firstTable = card
@@ -632,7 +760,7 @@ class GameScene: SKScene {
         let counter = 0.0
         return counter
     }
- //_______________________________________________//
+ //_______________________________________________////////////////////////////////////////////////////////////////////
     
     func checkHand (playerHand: [Card], isPlayer: Bool) {
         
@@ -694,7 +822,7 @@ class GameScene: SKScene {
             defeatPlate.movetoScreen(slidePosition: defeatPlateSlidePosition, startPosition: defeatPlateStartPosition)
         }
     }
-//_______________________________________________//
+//_______________________________________________////////////////////////////////////////////////////////////////////
     
     
     func flipFirstDeal(card: Card, counter: Double){
@@ -742,6 +870,8 @@ class GameScene: SKScene {
     }*/
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 extension SKSpriteNode {
     
     func addGlowInit(radius: Float = 5){
@@ -752,7 +882,6 @@ extension SKSpriteNode {
         effectNode.addChild(SKSpriteNode(texture: texture))
         effectNode.filter = CIFilter(name: "CIGaussianBlur", withInputParameters: ["inputRadius": radius])
         //effectNode.zPosition = -1
-        //effectNode.size = CGSize(width: 150, height: 65.0)
         let delay = SKAction.wait(forDuration: 0.25)
         let fadeIn = SKAction.fadeIn(withDuration: 3.0)
         let fadeOut = SKAction.fadeOut(withDuration: 0.5)

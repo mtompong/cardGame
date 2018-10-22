@@ -14,7 +14,7 @@ class Countdown : SKSpriteNode{
     let countDown2 :SKTexture
     let countDown1 :SKTexture
     let countDownGo :SKTexture
-  
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
